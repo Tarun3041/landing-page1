@@ -1,0 +1,19 @@
+.app-content {
+  margin-top: 30px;
+  padding: 10px 0px;
+  height: calc(100vh - 30px);
+  background: #f7f9fc;
+}
+.custom-scrollbar {
+  overflow: auto; 
+}
+
+
+.custom-scrollbar {
+  -ms-overflow-style: none; 
+  scrollbar-width: none; 
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  display: none;
+}

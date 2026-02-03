@@ -1,0 +1,104 @@
+body {
+  margin: 0;
+  font-family: Inter, sans-serif;
+  background: #f9f9f9;
+}
+
+.hero {
+  background: linear-gradient(135deg, #7b2c83, #f7941d);
+  color: white;
+  text-align: center;
+  padding: 10px 10px;
+}
+
+.hero span {
+  color: #f7941d;
+}
+
+.primary {
+  background: #f7941d;
+  border: none;
+  padding: 14px 32px;
+  font-size: 16px;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.plans {
+  padding: 60px;
+  text-align: center;
+}
+
+.grid {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 40px;
+}
+
+.card {
+  background: white;
+  border: 2px solid #7b2c83;
+  border-radius: 16px;
+  width: 300px;
+  padding: 30px;
+}
+
+.card h4 {
+  color: #f7941d;
+}
+
+.card button {
+  background: #7b2c83;
+  color: white;
+  border: none;
+  padding: 12px;
+  width: 100%;
+  border-radius: 6px;
+}
+
+.why {
+  background: #fff3e6;
+  padding: 60px;
+}
+
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  font-weight: bold;
+}
+
+.footer {
+  background: #7b2c83;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+.custom-scrollbar {
+  overflow-y: auto;
+}
+
+/* Chrome, Edge, Safari */
+.custom-scrollbar::-webkit-scrollbar {
+  /* width: 6px; */
+  display: none;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+  display: none;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(15, 76, 117, 0.4);
+  border-radius: 10px;
+  display: none;
+}
+
+/* Firefox */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(15, 76, 117, 0.4) transparent;
+}

@@ -1,0 +1,87 @@
+/* Desktop Nav */
+.desktop-nav {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-btn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  padding: 8px 12px;
+  cursor: pointer;
+  color: #444;
+  font-weight: 500;
+  position: relative;
+}
+
+.nav-btn.active {
+  color: #0f4c75;
+  font-weight: 600;
+}
+
+.nav-btn.active::after {
+  content: "";
+  position: absolute;
+  left: 10%;
+  bottom: -6px;
+  width: 80%;
+  height: 2px;
+  background: #0f4c75;
+}
+
+/* Mobile Nav */
+.mobile-nav {
+  display: none;
+  position: relative;
+}
+
+.hamburger {
+  font-size: 26px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.mobile-menu {
+  position: absolute;
+  right: 0;
+  top: 52px;
+  background: white;
+  width: 180px;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 2000;
+}
+
+.mobile-btn {
+  padding: 14px 16px;
+  text-align: left;
+  background: none;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.mobile-btn:hover {
+  background: #f0f6fb;
+}
+
+.mobile-btn.active {
+  background: #e6f1fa;
+  font-weight: 600;
+  color: #0f4c75;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 768px) {
+  .desktop-nav {
+    display: none;
+  }
+  .mobile-nav {
+    display: block;
+  }
+}
