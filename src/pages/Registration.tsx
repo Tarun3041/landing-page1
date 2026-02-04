@@ -1,5 +1,6 @@
 import {
   useEffect,
+  useRef,
   useState,
   type ChangeEvent,
   type FormEventHandler,
@@ -13,6 +14,8 @@ import {
 } from "../Service";
 import OtpInput from "./OtpInput";
 import { toast } from "react-toastify";
+import Loader from "./Loader";
+
 
 interface FormData {
   name: string;
@@ -59,6 +62,7 @@ export default function Register({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [otpModal, setOtpModal] = useState(false);
   const [isRegistered, setIsRegistered] = useState(false);
+  const [showOtpModal, setShowOtpModal] = useState(false);
   const [errors, setErrors] = useState<Partial<FormData>>({});
   const [passwordStrength, setPasswordStrength] = useState({
     score: 0,
@@ -66,6 +70,8 @@ export default function Register({
     color: "#ff4757",
   });
   const [otp, setOtp] = useState("");
+  const isVerifyingRef = useRef(false);
+
 
   useEffect(() => {
     if (otp.length === 6) {
@@ -225,10 +231,32 @@ export default function Register({
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
-    e.preventDefault();
-    if (!validateForm()) {
-      return;
+const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
+  e.preventDefault();
+
+  if (!validateForm()) return;
+
+  setIsSubmitting(true);
+
+  try {
+    const registrationData = {
+      name: formData.name,
+      mobileNumber: `${formData.countryCode}${formData.phone}`,
+      email: formData.email,
+      password: formData.password,
+    };
+
+    const response = (await registerUserApi(registrationData)) as {
+      status: number;
+      data: { message: string };
+      response?: { data?: { message?: string } };
+    };
+
+    if (response.status === 200) {
+      setShowOtpModal(true);
+      toast.success(response.data.message);
+    } else {
+      toast.error(response.response?.data?.message || "Registration failed");
     }
     setIsSubmitting(true);
     try {
@@ -263,6 +291,13 @@ export default function Register({
 
   return (
     <>
+      <Loader
+        show={isSubmitting}
+        type="dots"
+        timeout={5000} // Auto-close after 5 seconds
+        // onClose={() => setLoading(false)}
+      />
+
       <div className="register-page">
         <div className="register-container">
           {/* Close button for overlay */}
@@ -464,12 +499,49 @@ export default function Register({
             </form>
           </div>
         </div>
-        {otpModal && (
+        {showOtpModal && (
           <OtpInput
             length={6}
-            onChangeOtp={(val: any) => {
+            onChangeOtp={(val) => {
               setOtp(val);
+
+              // Only run when exactly 6 digits AND not already verifying
+              if (val.length === 6 && !isVerifyingRef.current) {
+                isVerifyingRef.current = true; // lock
+
+                let verifyEmailData = {
+                  email: formData.email,
+                  otp: val,
+                };
+
+                verifyUserByEmailApi(verifyEmailData)
+                  .then((response: any) => {
+                    if (response.status === 200) {
+                      setFormData({
+                        name: "",
+                        email: "",
+                        countryCode: "+91",
+                        phone: "",
+                        password: "",
+                        confirmPassword: "",
+                        selectedPlan,
+                      });
+
+                      toast.success(response.data.message);
+                      setShowOtpModal(false);
+
+                      if (onSwitchToLogin) {
+                        onSwitchToLogin();
+                      }
+                    }
+                  })
+
+                  .finally(() => {
+                    isVerifyingRef.current = false; // unlock
+                  });
+              }
             }}
+            onClose={() => setShowOtpModal(false)}
           />
         )}
       </div>

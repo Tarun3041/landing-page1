@@ -1,4 +1,5 @@
 import { useState, type ChangeEvent, type FormEventHandler } from "react";
+import Loader from "./Loader";
 import "../styles/registration.css";
 import { encryptPassword, loginUserApi } from "../Service";
 import { toast } from "react-toastify";
@@ -92,38 +93,82 @@ export default function Login({
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
-    e.preventDefault();
-    if (!validateForm()) {
-      return;
-    }
-    setIsSubmitting(true);
-    let encryptedPassword = encryptPassword(loginData.password);
-    try {
-      let loginDataPayload = {
-        email: loginData.email,
-        password: encryptedPassword,
-      };
-      loginUserApi(loginDataPayload).then((response: any) => {
-        if (response.status === 200) {
-          const { user, message } = response.data;
-          toast.success(message);
-          localStorage.setItem("isUserLoggedIn", "true");
-          localStorage.setItem("user", JSON.stringify(user));
-          if (onSuccess) {
-            onSuccess();
-          }
-        } else {
-          toast.error(response.response.data.message);
-        }
-      });
-    } catch (error) {
-      console.error("Login error:", error);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+  // const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
+  //   e.preventDefault();
+  //   if (!validateForm()) {
+  //     return;
+  //   }
+  //   setIsSubmitting(true);
+  //   try {
+  //     let loginDataPayload = {
+  //       email: loginData.email,
+  //       password: loginData.password,
+  //     };
+  //     loginUserApi(loginDataPayload).then((response: any) => {
+  //       if (response.status === 200) {
+  //         const { user, message } = response.data;
+  //         toast.success(message);
+  //         localStorage.setItem("isUserLoggedIn", "true");
+  //         localStorage.setItem("user", JSON.stringify(user));
+  //         if (onSuccess) {
+  //           onSuccess();
+  //         }
+  //       } else {
+  //         toast.error(response.response.data.message);
+  //       }
+  //     });
+  //   } catch (error) {
+  //     console.error("Login error:", error);
+  //   } finally {
+  //     setIsSubmitting(false);
+  //   }
+  // };
+const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
+  e.preventDefault();
+  if (!validateForm()) {
+    return;
+  }
+  setIsSubmitting(true);
+  try {
+    let loginDataPayload = {
+      email: loginData.email,
+      password: loginData.password,
+    };
 
+    // Type the response properly
+    const response: any = await loginUserApi(loginDataPayload);
+
+    if (response.status === 200) {
+      const { user, message } = response.data;
+      toast.success(message);
+      localStorage.setItem("isUserLoggedIn", "true");
+      localStorage.setItem("user", JSON.stringify(user));
+
+      if (onSuccess) {
+        onSuccess();
+      }
+
+      // Redirect using window.location
+      window.location.href = "/";
+    } else {
+      // Handle non-200 responses
+      toast.error(
+        response.response?.data?.message || response.message || "Login failed",
+      );
+    }
+  } catch (error: any) {
+    console.error("Login error:", error);
+    // Handle different error formats
+    const errorMessage =
+      error.response?.data?.message ||
+      error.message ||
+      error.data?.message ||
+      "An error occurred during login";
+    toast.error(errorMessage);
+  } finally {
+    setIsSubmitting(false);
+  }
+};
   const handleForgotPassword = () => {
     alert("Password reset link will be sent to your email.");
     // Implement forgot password logic here

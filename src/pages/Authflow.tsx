@@ -30,18 +30,18 @@ export default function AuthFlow({
 
   return (
     <div className="auth-flow-container">
-      {currentView === "register" ? (
+      {currentView === "login" ? (
+        <Login
+          onClose={onClose}
+          onSuccess={onAuthComplete}
+          onSwitchToRegister={handleSwitchToRegister}
+        />
+      ) : (
         <Register
           onClose={onClose}
           onComplete={onAuthComplete}
           selectedPlan={selectedPlan}
           onSwitchToLogin={handleSwitchToLogin}
-        />
-      ) : (
-        <Login
-          onClose={onClose}
-          onSuccess={onAuthComplete}
-          onSwitchToRegister={handleSwitchToRegister}
         />
       )}
     </div>
