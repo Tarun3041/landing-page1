@@ -96,8 +96,8 @@ export default function Register({
   }, [otp]);
 
   const countries: Country[] = [
-    { code: "IN", flag: "🇮🇳", name: "India", dialCode: "+91" },
-    { code: "US", flag: "🇺🇸", name: "United States", dialCode: "+1" },
+    { code: "IND", flag: "IND", name: "India", dialCode: "+91" },
+    { code: "USA", flag: "USA", name: "United States", dialCode: "+1" },
     // { code: "GB", flag: "🇬🇧", name: "United Kingdom", dialCode: "+44" },
     // { code: "CA", flag: "🇨🇦", name: "Canada", dialCode: "+1" },
     // { code: "AU", flag: "🇦🇺", name: "Australia", dialCode: "+61" },

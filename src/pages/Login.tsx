@@ -200,7 +200,7 @@ export default function Login({
             </div>
             <div
               className="form-group"
-              style={{ width: "50%", margin: "auto" }}
+              style={{ width: "50%", margin: "auto", marginTop: "10px" }}
             >
               <label className="form-label">
                 Password <span style={{ color: "#d32f2f" }}>*</span>

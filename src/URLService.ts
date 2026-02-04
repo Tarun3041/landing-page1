@@ -7,6 +7,7 @@ export const REGISTER_USER = "enviroUser/send-email-otp";
 export const VERIFY_USER_BY_EMAIL = "enviroUser/verify-email-otp";
 export const LOGIN_USER = "enviroUser/login";
 export const REQUEST_DEMO = "enviroUser/request-demo";
+export const LOGOUT_USER = "enviroUser/logout";
 export const SECRET_KEY = "mySuperSecretKey123!@#";
 
 export function registerUserUrl() {
@@ -19,6 +20,10 @@ export function verifyUserByEmailUrl() {
 
 export function loginUserUrl() {
   return applicationURL + LOGIN_USER;
+}
+
+export function logoutUserUrl() {
+  return applicationURL + LOGOUT_USER;
 }
 
 export function requestDemoUrl() {

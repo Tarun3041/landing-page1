@@ -1,6 +1,7 @@
 import axios from "axios";
 import {
   loginUserUrl,
+  logoutUserUrl,
   registerUserUrl,
   requestDemoUrl,
   SECRET_KEY,
@@ -47,6 +48,19 @@ export const loginUserApi = async (loginData: any) => {
   }
 };
 
+export const logoutUserApi = async (logoutData: any) => {
+  try {
+    const response = await axios.post(logoutUserUrl(), logoutData, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
 export const requestDemoApi = async (requestDemoData: any) => {
   try {
     const response = await axios.post(requestDemoUrl(), requestDemoData, {
@@ -68,4 +82,3 @@ export const encryptPassword = (password: string): string => {
     padding: CryptoJS.pad.Pkcs7,
   }).toString();
 };
-

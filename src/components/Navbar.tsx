@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import "../styles/navbar.css";
+import { logoutUserApi } from "../Service";
+import { toast } from "react-toastify";
 
 const tabs = ["Home", "Plans", "Services", "Contact", "Login"];
 
@@ -35,6 +37,24 @@ export default function Navbar({ activePage, setActivePage }: any) {
   const visibleTabs = isUserLoggedIn
     ? tabs.filter((tab) => tab !== "Login")
     : tabs;
+
+  const logoutHandler = () => {
+    let logoutData = {
+      email: user.email,
+    };
+    logoutUserApi(logoutData).then((response: any) => {
+      if (response.status === 200) {
+        localStorage.removeItem("isUserLoggedIn");
+        localStorage.removeItem("user");
+        toast.success(response.data.message);
+        setShowPopover(false);
+        setActivePage("Home");
+        window.location.reload();
+      } else {
+        toast.error(response.response.data.message);
+      }
+    });
+  };
 
   return (
     <>
@@ -155,13 +175,7 @@ export default function Navbar({ activePage, setActivePage }: any) {
                     alignItems: "center",
                     gap: "8px",
                   }}
-                  onClick={() => {
-                    localStorage.removeItem("isUserLoggedIn");
-                    localStorage.removeItem("user");
-                    setShowPopover(false);
-                    setActivePage("Home");
-                    window.location.reload();
-                  }}
+                  onClick={logoutHandler}
                 >
                   <svg
                     className="h-8 w-8 text-slate-500"
