@@ -1,6 +1,6 @@
 import { useState, type ChangeEvent, type FormEventHandler } from "react";
 import "../styles/registration.css";
-import { loginUserApi } from "../Service";
+import { encryptPassword, loginUserApi } from "../Service";
 import { toast } from "react-toastify";
 
 interface LoginData {
@@ -98,10 +98,11 @@ export default function Login({
       return;
     }
     setIsSubmitting(true);
+    let encryptedPassword = encryptPassword(loginData.password);
     try {
       let loginDataPayload = {
         email: loginData.email,
-        password: loginData.password,
+        password: encryptedPassword,
       };
       loginUserApi(loginDataPayload).then((response: any) => {
         if (response.status === 200) {

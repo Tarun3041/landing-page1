@@ -6,7 +6,11 @@ import {
 } from "react";
 import "../styles/registration.css";
 import parsePhoneNumberFromString from "libphonenumber-js";
-import { registerUserApi, verifyUserByEmailApi } from "../Service";
+import {
+  encryptPassword,
+  registerUserApi,
+  verifyUserByEmailApi,
+} from "../Service";
 import OtpInput from "./OtpInput";
 import { toast } from "react-toastify";
 
@@ -228,11 +232,12 @@ export default function Register({
     }
     setIsSubmitting(true);
     try {
+      let encryptedPassword = encryptPassword(formData.password);
       let registrationData = {
         name: formData.name,
         mobileNumber: `${formData.countryCode}${formData.phone}`,
         email: formData.email,
-        password: formData.password,
+        password: encryptedPassword,
       };
       registerUserApi(registrationData).then((response: any) => {
         if (response.status === 200) {

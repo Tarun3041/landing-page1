@@ -11,7 +11,7 @@ interface AuthFlowProps {
 }
 
 export default function AuthFlow({
-  initialView = "register",
+  initialView = "login",
   selectedPlan = "",
   onClose,
   onAuthComplete,

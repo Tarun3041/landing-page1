@@ -3,8 +3,10 @@ import {
   loginUserUrl,
   registerUserUrl,
   requestDemoUrl,
+  SECRET_KEY,
   verifyUserByEmailUrl,
 } from "./URLService";
+import CryptoJS from "crypto-js";
 
 export const registerUserApi = async (registrationData: any) => {
   try {
@@ -58,4 +60,12 @@ export const requestDemoApi = async (requestDemoData: any) => {
   }
 };
 
+const key = CryptoJS.enc.Utf8.parse(SECRET_KEY);
+
+export const encryptPassword = (password: string): string => {
+  return CryptoJS.AES.encrypt(password, key, {
+    mode: CryptoJS.mode.ECB,
+    padding: CryptoJS.pad.Pkcs7,
+  }).toString();
+};
 
