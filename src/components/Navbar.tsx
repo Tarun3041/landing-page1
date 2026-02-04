@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../styles/navbar.css";
 
-const tabs = ["Home", "Plans", "Services", "Contact"];
+const tabs = ["Home", "Plans", "Services", "Contact","Login"];
 
 export default function Navbar({ activePage, setActivePage }: any) {
   const [open, setOpen] = useState(false);

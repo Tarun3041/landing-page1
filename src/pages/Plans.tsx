@@ -1,22 +1,86 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../styles/plans.css";
+import Register from "./Registration"; // Import the Register component
+import AuthFlow from "./Authflow";
 
 export default function Plans() {
   const [open, setOpen] = useState<string | null>(null);
+  const [showRegistration, setShowRegistration] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState<string>("");
 
   const toggle = (id: string) => {
     setOpen(open === id ? null : id);
   };
 
+  const handleGetStarted = (planType: string) => {
+    setSelectedPlan(planType);
+    setShowRegistration(true);
+    // Scroll to top when showing registration
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleRegistrationComplete = () => {
+    setShowRegistration(false);
+    setSelectedPlan("");
+    // You could show a success message or redirect to dashboard here
+    alert(
+      `Thank you for choosing ${selectedPlan} plan! Registration completed.`,
+    );
+  };
+
+  // Hide body scroll when registration is shown
+  useEffect(() => {
+    if (showRegistration) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [showRegistration]);
+
+if (showRegistration) {
+  return (
+    <div className="register-overlay">
+      <div className="register-modal">
+        {/* Top bar */}
+        {/* <div className="registration-header">
+          <button
+            className="back-btn1"
+            onClick={() => {
+              setShowRegistration(false);
+              setSelectedPlan("");
+            }}
+          >
+            ← Back
+          </button>
+
+          <div className="selected-plan-label">
+            Selected Plan: <strong>{selectedPlan}</strong>
+          </div>
+        </div> */}
+        <AuthFlow />
+      </div>
+    </div>
+  );
+}
+
+
+
   return (
     <div className="page">
       <div className="plans-header">
         <h1 className="plans-title">Elder Care Plans</h1>
+        {/* <p className="plans-subtitle">
+          Choose the perfect care plan for your loved ones
+        </p> */}
       </div>
 
       <div className="plans-grid">
         {/* ================= BASIC CARE ================= */}
-        <div className="plan-card plan-basic custom-scrollbar">
+        <div className="plan-card plan-basic">
           <div className="plan-card-main">
             <div className="plan-header">
               <div className="flex items-center justify-between">
@@ -66,7 +130,12 @@ export default function Plans() {
               </div>
 
               <div className="plan-actions">
-                <button className="plan-btn">Get Started</button>
+                <button
+                  className="plan-btn"
+                  onClick={() => handleGetStarted("Basic Care")}
+                >
+                  Get Started
+                </button>
                 <button
                   className="plan-toggle"
                   onClick={() => toggle("basic")}
@@ -241,7 +310,7 @@ export default function Plans() {
         </div>
 
         {/* ================= ADVANCED CARE ================= */}
-        <div className="plan-card plan-advanced custom-scrollbar">
+        <div className="plan-card plan-advanced">
           <div className="plan-card-main">
             <div className="plan-header">
               <div className="flex items-center justify-between">
@@ -293,7 +362,12 @@ export default function Plans() {
               </div>
 
               <div className="plan-actions">
-                <button className="plan-btn">Get Started</button>
+                <button
+                  className="plan-btn"
+                  onClick={() => handleGetStarted("Advanced Care")}
+                >
+                  Get Started
+                </button>
                 <button
                   className="plan-toggle"
                   onClick={() => toggle("advanced")}
@@ -483,7 +557,7 @@ function Row({
 function FeatureRow({ children }: { children: React.ReactNode }) {
   return (
     <div className="feature-row">
-      <span className="feature-icon1">→</span>
+      <span className="feature-icon">→</span>
       <span>{children}</span>
     </div>
   );

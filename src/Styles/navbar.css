@@ -7,16 +7,16 @@
 .nav-btn {
   background: none;
   border: none;
-  font-size: 18px;
-  padding: 8px 12px;
+  font-size: 15px;
+  padding: 1px 12px;
   cursor: pointer;
-  color: #444;
+  color: #942e79;
   font-weight: 500;
   position: relative;
 }
 
 .nav-btn.active {
-  color: #0f4c75;
+  color: #fafafa;
   font-weight: 600;
 }
 

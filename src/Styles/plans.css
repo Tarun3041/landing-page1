@@ -238,8 +238,8 @@
    BUTTONS
 =========================== */
 .plan-actions {
-  margin-top: auto;
-  padding-top: 15px;
+  margin-top: 2px;
+  padding-top: 5px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -551,4 +551,27 @@
     height: auto;     /* let it grow naturally */
     min-height: 420px;
   }
+}
+.back-icon1{
+margin-top: 15px;
+}
+.back-btn1 {
+  background: none;
+  border: 2px solid #0f4c75;
+  color: #0f4c75;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 8px;
+  /* position: relative; */
+  margin-top: 10px;
+}
+.selected-plan-label {
+  font-size: 13px;
+  color: #555;
+}
+
+.back-btn1:hover {
+  text-decoration: underline;
 }

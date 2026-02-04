@@ -1,11 +1,11 @@
 import Header from "./Header";
-// import "../styles/layout.css";
+import "../styles/layout.css";
 
 export default function Layout({ children, activePage, setActivePage }: any) {
   return (
     <>
       <Header activePage={activePage} setActivePage={setActivePage} />
-      <main className="app-content custom-scrollbar">{children}</main>
+      <main className="app-content ">{children}</main>
     </>
   );
 }

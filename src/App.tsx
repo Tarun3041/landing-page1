@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Plans from "./pages/Plans";
 import Services from "./pages/Services";
 import Contact from "./pages/Contact";
+import AuthFlow from "./pages/Authflow";
 import About from "./pages/About";
 
 export default function App() {
@@ -19,6 +20,8 @@ export default function App() {
         return <Contact />;
       case "About":
         return <About />;
+      case "Login":
+        return <AuthFlow />;
       default:
         return <Home />;
     }

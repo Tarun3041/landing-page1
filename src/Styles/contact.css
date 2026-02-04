@@ -16,7 +16,7 @@
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1.2fr;
-  gap: 40px;
+  gap: 10px;
   background: white;
   border-radius: 24px;
   overflow: hidden;
@@ -29,7 +29,7 @@
 .contact-info {
   background: linear-gradient(135deg, #FF8C00 0%, #9F4579 100%);
   color: white;
-  padding: 50px 40px;
+  padding: 10px 10px;
   display: flex;
   flex-direction: column;
 }
@@ -130,7 +130,7 @@
    RIGHT SIDE - FORM SECTION
 =========================== */
 .contact-form-section {
-  padding: 50px 40px;
+  padding: 10px 10px;
   background: white;
 }
 
@@ -185,7 +185,7 @@
 
 .form-input,
 .form-textarea {
-  padding: 14px 16px;
+  padding: 7px 16px;
   border: 2px solid #e1e5e9;
   border-radius: 10px;
   font-size: 0.95rem;

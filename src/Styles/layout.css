@@ -1,8 +1,13 @@
 .app-content {
-  margin-top: 30px;
-  padding: 10px 0px;
-  height: calc(100vh - 30px);
-  background: #f7f9fc;
+  margin-top: 10px !important;
+  padding: 20px 0px 0px;
+  height: calc(100vh - 10px );
+  /* background: #f7f9fc; */
+  overflow: hidden;
+  
+background: linear-gradient(135deg, #1E3A8A, #3B82F6,
+  );
+
 }
 .custom-scrollbar {
   overflow: auto; 
