@@ -103,7 +103,7 @@ export default function Contact() {
 
   if (isSubmitted) {
     return (
-      <div className="contact-page">
+      <div className="contact-page" >
         <div className="success-message">
           <div className="success-icon">🎉</div>
           <h3>Thank You!</h3>
@@ -121,7 +121,10 @@ export default function Contact() {
 
   return (
     <div className="contact-page">
-      <div className="contact-container">
+      <div
+        className="contact-container custom-scrollbar"
+        style={{ height: "calc(100vh - 63px)", overflowY: "auto" }}
+      >
         {/* Left Side - Information */}
         <div className="contact-info">
           <div className="contact-header">

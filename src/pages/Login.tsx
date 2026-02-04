@@ -202,7 +202,6 @@ export default function Login({
                 <div className="error-message">{errors.email}</div>
               )}
             </div>
-
             <div
               className="form-group"
               style={{ width: "50%", margin: "auto" }}
@@ -232,7 +231,6 @@ export default function Login({
                 <div className="error-message">{errors.password}</div>
               )}
             </div>
-
             {/* Remember Me & Forgot Password */}
             <div className="login-options">
               {/* <div className="remember-me">
@@ -252,7 +250,6 @@ export default function Login({
                 Forgot Password?
               </button> */}
             </div>
-
             {/* REGISTER LINK (FULL WIDTH) */}
             <div className="form-group-full register-link">
               New user?{" "}

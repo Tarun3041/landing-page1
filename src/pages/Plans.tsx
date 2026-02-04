@@ -72,15 +72,15 @@ if (showRegistration) {
   return (
     <div className="page">
       <div className="plans-header">
-        <h1 className="plans-title">Elder Care Plans</h1>
+        <h1 className="plans-title" >Elder Care Plans</h1>
         {/* <p className="plans-subtitle">
           Choose the perfect care plan for your loved ones
         </p> */}
       </div>
 
-      <div className="plans-grid">
+      <div className="plans-grid custom-scrollbar" style={{height:"calc(100vh - 112px)",overflowY:"auto"}}>
         {/* ================= BASIC CARE ================= */}
-        <div className="plan-card plan-basic">
+        <div className="plan-card plan-basic custom-scrollbar">
           <div className="plan-card-main">
             <div className="plan-header">
               <div className="flex items-center justify-between">
@@ -310,7 +310,7 @@ if (showRegistration) {
         </div>
 
         {/* ================= ADVANCED CARE ================= */}
-        <div className="plan-card plan-advanced">
+        <div className="plan-card plan-advanced custom-scrollbar">
           <div className="plan-card-main">
             <div className="plan-header">
               <div className="flex items-center justify-between">
@@ -557,7 +557,7 @@ function Row({
 function FeatureRow({ children }: { children: React.ReactNode }) {
   return (
     <div className="feature-row">
-      <span className="feature-icon">→</span>
+      <span className="feature-icon1">→</span>
       <span>{children}</span>
     </div>
   );
