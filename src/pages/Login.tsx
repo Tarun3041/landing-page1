@@ -1,5 +1,7 @@
 import { useState, type ChangeEvent, type FormEventHandler } from "react";
 import "../styles/registration.css";
+import { loginUserApi } from "../Service";
+import { toast } from "react-toastify";
 
 interface LoginData {
   email: string;
@@ -92,36 +94,32 @@ export default function Login({
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
-
     if (!validateForm()) {
       return;
     }
-
     setIsSubmitting(true);
-
     try {
-      // Simulate API call for login
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      console.log("Login attempt:", {
+      // console.log("Login attempt:", {
+      //   email: loginData.email,
+      //   rememberMe,
+      // });
+      let loginDataPayload = {
         email: loginData.email,
-        rememberMe,
+        password: loginData.password,
+      };
+      loginUserApi(loginDataPayload).then((response: any) => {
+        if (response.status === 200) {
+          const { user, message } = response.data;
+          toast.success(message);
+          localStorage.setItem("isUserLoggedIn", "true");
+          localStorage.setItem("user", JSON.stringify(user));
+          if (onSuccess) {
+            onSuccess();
+          }
+        } else {
+          toast.error(response.response.data.message);
+        }
       });
-
-      // If remember me is checked, store in localStorage
-      if (rememberMe) {
-        localStorage.setItem("rememberedEmail", loginData.email);
-      } else {
-        localStorage.removeItem("rememberedEmail");
-      }
-
-      // Call onSuccess callback if provided
-      if (onSuccess) {
-        onSuccess();
-      }
-
-      // You can redirect to dashboard or home page here
-      alert("Login successful! Redirecting...");
     } catch (error) {
       console.error("Login error:", error);
       alert("Invalid email or password. Please try again.");
@@ -188,7 +186,9 @@ export default function Login({
               className="form-group"
               style={{ width: "50%", margin: "auto" }}
             >
-              <label className="form-label">Email Address</label>
+              <label className="form-label">
+                Email <span style={{ color: "#d32f2f" }}>*</span>
+              </label>
               <input
                 type="email"
                 name="email"
@@ -199,7 +199,7 @@ export default function Login({
                 autoComplete="email"
               />
               {errors.email && (
-                <div className="error-message">⚠️ {errors.email}</div>
+                <div className="error-message">{errors.email}</div>
               )}
             </div>
 
@@ -207,7 +207,9 @@ export default function Login({
               className="form-group"
               style={{ width: "50%", margin: "auto" }}
             >
-              <label className="form-label">Password</label>
+              <label className="form-label">
+                Password <span style={{ color: "#d32f2f" }}>*</span>
+              </label>
               <div className="password-wrapper">
                 <input
                   type={showPassword ? "text" : "password"}
@@ -227,7 +229,7 @@ export default function Login({
                 </button>
               </div>
               {errors.password && (
-                <div className="error-message">⚠️ {errors.password}</div>
+                <div className="error-message">{errors.password}</div>
               )}
             </div>
 
@@ -242,13 +244,13 @@ export default function Login({
                 />
                 <label htmlFor="rememberMe">Remember me</label>
               </div> */}
-              <button
+              {/* <button
                 type="button"
                 className="forgot-password-btn"
                 onClick={handleForgotPassword}
               >
                 Forgot Password?
-              </button>
+              </button> */}
             </div>
 
             {/* REGISTER LINK (FULL WIDTH) */}

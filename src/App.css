@@ -76,3 +76,42 @@ body {
   padding: 20px;
   text-align: center;
 }
+
+.custom-toast-container {
+  top: 0px !important;
+  position: fixed !important;
+  z-index: 99999 !important;
+}
+
+.custom-toast-container .Toastify__toast {
+  border-radius: 12px;
+  padding: 12px 40px 12px 16px;
+  position: relative;
+  font-size: 14px;
+  background-color: #eaf4f8;
+  color: #01627d;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 48px;
+  width: fit-content;
+  max-width: 90vw;
+  word-wrap: break-word;
+  white-space: normal;
+}
+
+.Toastify__close-button--light {
+  color: #ed745f;
+  opacity: 1;
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+}

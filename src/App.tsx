@@ -6,6 +6,7 @@ import Services from "./pages/Services";
 import Contact from "./pages/Contact";
 import AuthFlow from "./pages/Authflow";
 import About from "./pages/About";
+import { ToastContainer } from "react-toastify";
 
 export default function App() {
   const [activePage, setActivePage] = useState("Home");
@@ -30,6 +31,12 @@ export default function App() {
   return (
     <Layout activePage={activePage} setActivePage={setActivePage}>
       {renderPage()}
+      <ToastContainer
+        position="top-center"
+        autoClose={2000}
+        newestOnTop={true}
+        className="custom-toast-container"
+      />
     </Layout>
   );
 }
