@@ -43,7 +43,7 @@ export default function Register({
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
-    countryCode: "+1",
+    countryCode: "+91",
     phone: "",
     password: "",
     confirmPassword: "",

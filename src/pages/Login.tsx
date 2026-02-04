@@ -99,10 +99,6 @@ export default function Login({
     }
     setIsSubmitting(true);
     try {
-      // console.log("Login attempt:", {
-      //   email: loginData.email,
-      //   rememberMe,
-      // });
       let loginDataPayload = {
         email: loginData.email,
         password: loginData.password,
@@ -122,7 +118,6 @@ export default function Login({
       });
     } catch (error) {
       console.error("Login error:", error);
-      alert("Invalid email or password. Please try again.");
     } finally {
       setIsSubmitting(false);
     }

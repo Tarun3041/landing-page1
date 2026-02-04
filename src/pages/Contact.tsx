@@ -1,5 +1,7 @@
 import { useState, type ChangeEvent, type FormEventHandler } from "react";
 import "../styles/contact.css";
+import { toast } from "react-toastify";
+import { requestDemoApi } from "../Service";
 
 interface FormData {
   firstName: string;
@@ -26,10 +28,12 @@ export default function Contact() {
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
+
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
+
     // Clear error when user starts typing
     if (errors[name as keyof FormData]) {
       setErrors((prev) => ({
@@ -66,32 +70,32 @@ export default function Contact() {
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
-
-    if (!validateForm()) {
-      return;
-    }
-
+    if (!validateForm()) return;
     setIsSubmitting(true);
-
+    let requestDemoData = {
+      name: `${formData.firstName}${formData.lastName}`,
+      email: formData.email,
+      mobileNumber: formData.phone,
+      message: formData.message,
+    };
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-
-      // In a real application, you would send the data to your backend here
-      console.log("Form submitted:", formData);
-
-      setIsSubmitted(true);
-      // Reset form after successful submission
-      setFormData({
-        firstName: "",
-        lastName: "",
-        email: "",
-        phone: "",
-        message: "",
+      requestDemoApi(requestDemoData).then((response: any) => {
+        if (response.status === 200) {
+          // toast.success(message);
+          setIsSubmitted(true);
+          setFormData({
+            firstName: "",
+            lastName: "",
+            email: "",
+            phone: "",
+            message: "",
+          });
+        } else {
+          toast.error(response.response.data.message);
+        }
       });
     } catch (error) {
       console.error("Error submitting form:", error);
-      alert("There was an error submitting your request. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -103,7 +107,7 @@ export default function Contact() {
 
   if (isSubmitted) {
     return (
-      <div className="contact-page" >
+      <div className="contact-page">
         <div className="success-message">
           <div className="success-icon">🎉</div>
           <h3>Thank You!</h3>
@@ -134,7 +138,6 @@ export default function Contact() {
               loved ones. Schedule a personalized demo today.
             </p>
           </div>
-
           <div className="contact-features">
             <div className="feature-item">
               <div className="feature-icon">🎯</div>
@@ -145,7 +148,6 @@ export default function Contact() {
                 </p>
               </div>
             </div>
-
             <div className="feature-item">
               <div className="feature-icon">⏱️</div>
               <div className="feature-content">
@@ -156,7 +158,6 @@ export default function Contact() {
                 </p>
               </div>
             </div>
-
             <div className="feature-item">
               <div className="feature-icon">💬</div>
               <div className="feature-content">
@@ -167,7 +168,6 @@ export default function Contact() {
               </div>
             </div>
           </div>
-
           <div className="contact-details">
             <div className="detail-item">
               <div className="detail-icon">📧</div>
@@ -183,15 +183,14 @@ export default function Contact() {
             </div>
           </div>
         </div>
-
         {/* Right Side - Form */}
         <div className="contact-form-section">
           <div className="form-header">
             <h2>Get Started Today</h2>
             <p>Fill out the form below and we'll get back to you promptly.</p>
           </div>
-
-          <form className="demo-form" onSubmit={handleSubmit}>
+          {/* ✅ ONLY CHANGE IS noValidate */}
+          <form className="demo-form" onSubmit={handleSubmit} noValidate>
             <div className="form-group">
               <label className="form-label">
                 First Name <span className="required">*</span>
@@ -209,7 +208,6 @@ export default function Contact() {
                 <span className="error-text">{errors.firstName}</span>
               )}
             </div>
-
             <div className="form-group">
               <label className="form-label">
                 Last Name <span className="required">*</span>
@@ -227,7 +225,6 @@ export default function Contact() {
                 <span className="error-text">{errors.lastName}</span>
               )}
             </div>
-
             <div className="form-group">
               <label className="form-label">
                 Work Email <span className="required">*</span>
@@ -245,7 +242,6 @@ export default function Contact() {
                 <span className="error-text">{errors.email}</span>
               )}
             </div>
-
             <div className="form-group">
               <label className="form-label">Phone Number (Optional)</label>
               <input
@@ -260,7 +256,6 @@ export default function Contact() {
                 <span className="error-text">{errors.phone}</span>
               )}
             </div>
-
             <div className="form-group">
               <label className="form-label">Message (Optional)</label>
               <textarea
@@ -271,7 +266,6 @@ export default function Contact() {
                 placeholder="Tell us about your specific needs or questions..."
               />
             </div>
-
             <button
               type="submit"
               className="submit-btn"
@@ -300,7 +294,6 @@ export default function Contact() {
               )}
             </button>
           </form>
-
           <div className="form-footer">
             <p className="privacy-note">
               By submitting this form, you agree to our Privacy Policy and

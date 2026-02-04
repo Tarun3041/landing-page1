@@ -2,6 +2,7 @@ import axios from "axios";
 import {
   loginUserUrl,
   registerUserUrl,
+  requestDemoUrl,
   verifyUserByEmailUrl,
 } from "./URLService";
 
@@ -43,3 +44,18 @@ export const loginUserApi = async (loginData: any) => {
     return error;
   }
 };
+
+export const requestDemoApi = async (requestDemoData: any) => {
+  try {
+    const response = await axios.post(requestDemoUrl(), requestDemoData, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+
