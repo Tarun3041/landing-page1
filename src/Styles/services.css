@@ -2,8 +2,8 @@
    CONTAINER STYLING
 =========================== */
 .services-container {
-  max-width: 1400px;
-  margin: 0 auto;
+  max-width: 100%;
+  margin: 0 ;
   padding: 30px 20px;
   background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
   min-height: 100vh;
@@ -147,7 +147,7 @@
 }
 
 .service-card:hover {
-  transform: translateY(-5px);
+  /* transform: translateY(-5px); */
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
   border-color: #3b82f6;
 }
@@ -262,7 +262,7 @@
 .book-btn {
   flex: 1;
   padding: 10px 16px;
-  background: linear-gradient(to right, #9d437b 0%, #f98c1d 100%);
+  background: linear-gradient(to right, #f98c1d 0%, #f98c1d 100%);
   color: white;
   border: none;
   border-radius: 8px;

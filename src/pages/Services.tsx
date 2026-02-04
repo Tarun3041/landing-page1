@@ -962,161 +962,165 @@ export default function Services() {
         ))}
       </div>
 
-      {/* Cards View */}
-      <div
-        className={`services-grid ${viewMode === "cards" ? "active" : ""} custom-scrollbar`}
-        style={{ maxHeight: "calc(100vh - 165px)", overflowY: "auto" }}
-      >
-        {filteredServices.map((service, index) => (
-          <div
-            key={service.id}
-            className="service-card"
-            onClick={() => toggleCardView(index)}
-            data-service-id={service.id}
-          >
-            <div className="card-header">
-              <div
-                className="category-badge"
-                style={{ backgroundColor: getCategoryColor(service.category) }}
-              >
-                {service.category}
-              </div>
-              <h3 className="service-name">{service.service}</h3>
-              <div className="price-tag">
-                <span className="price-amount">
-                  {formatPricing(service.pricing)}
-                </span>
-                {typeof service.pricing === "string" &&
-                service.pricing.toLowerCase().includes("inr") ? (
-                  <span className="price-note">One-time payment</span>
-                ) : service.pricing === "Free Benefit" ? (
-                  <span className="price-note">Complimentary</span>
-                ) : service.pricing === "Contact for quote" ? (
-                  <span className="price-note">Custom pricing</span>
-                ) : (
-                  <span className="price-note">Per service</span>
-                )}
-              </div>
-            </div>
-
-            <div className="card-body">
-              <div
-                className={`description-content ${expandedCards[index] ? "expanded" : "collapsed"}`}
-              >
-                {service.description}
-              </div>
-              {service.description.length > 150 && (
-                <button
-                  className="read-more-btn"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    toggleCardView(index);
+      <div style={{ maxHeight: "calc(100vh - 165px)", overflowY: "auto" }} className="custom-scrollbar">
+        {/* Cards View */}
+        <div
+          className={`services-grid ${viewMode === "cards" ? "active" : ""} custom-scrollbar`}
+          // style={{ maxHeight: "calc(100vh - 185px)", overflowY: "auto" }}
+        >
+          {filteredServices.map((service, index) => (
+            <div
+              key={service.id}
+              className="service-card"
+              onClick={() => toggleCardView(index)}
+              data-service-id={service.id}
+            >
+              <div className="card-header">
+                <div
+                  className="category-badge"
+                  style={{
+                    backgroundColor: getCategoryColor(service.category),
                   }}
                 >
-                  {expandedCards[index] ? "Read less" : "Read more"}
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    style={{
-                      transform: expandedCards[index]
-                        ? "rotate(180deg)"
-                        : "none",
-                      transition: "transform 0.2s ease",
+                  {service.category}
+                </div>
+                <h3 className="service-name">{service.service}</h3>
+                <div className="price-tag">
+                  <span className="price-amount">
+                    {formatPricing(service.pricing)}
+                  </span>
+                  {typeof service.pricing === "string" &&
+                  service.pricing.toLowerCase().includes("inr") ? (
+                    <span className="price-note">One-time payment</span>
+                  ) : service.pricing === "Free Benefit" ? (
+                    <span className="price-note">Complimentary</span>
+                  ) : service.pricing === "Contact for quote" ? (
+                    <span className="price-note">Custom pricing</span>
+                  ) : (
+                    <span className="price-note">Per service</span>
+                  )}
+                </div>
+              </div>
+
+              <div className="card-body">
+                <div
+                  className={`description-content ${expandedCards[index] ? "expanded" : "collapsed"}`}
+                >
+                  {service.description}
+                </div>
+                {service.description.length > 150 && (
+                  <button
+                    className="read-more-btn"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleCardView(index);
                     }}
                   >
-                    <path d="M6 9l6 6 6-6" />
-                  </svg>
-                </button>
-              )}
-            </div>
-
-            {/* <div className="card-footer">
-              <div className="action-buttons">
-                {service.pricing !== "Contact for quote" &&
-                service.pricing !== "Free Benefit" ? (
-                  // <button
-                  //   className="book-btn"
-                  //   onClick={(e) => handleBookService(service, e)}
-                  // >
-                  //   <svg
-                  //     width="16"
-                  //     height="16"
-                  //     viewBox="0 0 24 24"
-                  //     fill="none"
-                  //     stroke="currentColor"
-                  //     strokeWidth="2"
-                  //   >
-                  //     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                  //     <circle cx="12" cy="7" r="4" />
-                  //   </svg>
-                  //   Book Now
-                  // </button>
-                  <div></div>
-                ) : (
-                  // <button
-                  //   className="contact-btn-small"
-                  //   onClick={(e) => handleContactQuote(service, e)}
-                  // >
-                  //   <svg
-                  //     width="16"
-                  //     height="16"
-                  //     viewBox="0 0 24 24"
-                  //     fill="none"
-                  //     stroke="currentColor"
-                  //     strokeWidth="2"
-                  //   >
-                  //     <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
-                  //   </svg>
-                  //   Get Quote
-                  // </button>
-                  <div></div>
-                )}
-              </div>
-            </div> */}
-          </div>
-        ))}
-      </div>
-
-      {/* Table View */}
-      <div
-        className={`services-table-container ${viewMode === "table" ? "active" : ""}`}
-      >
-        <table className="services-table">
-          <thead>
-            <tr>
-              <th className="column-service">Service</th>
-              <th className="column-description">Description</th>
-              <th className="column-pricing">Individual Pricing</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredServices.map((service, index) => (
-              <tr
-                key={service.id}
-                className={`service-row ${expandedTableRow === index ? "expanded" : ""}`}
-                onClick={() => toggleTableView(index)}
-                data-service-id={service.id}
-              >
-                <td className="service-cell">
-                  <div className="service-content">
-                    <div
-                      className="service-category"
+                    {expandedCards[index] ? "Read less" : "Read more"}
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
                       style={{
-                        backgroundColor: getCategoryColor(service.category),
+                        transform: expandedCards[index]
+                          ? "rotate(180deg)"
+                          : "none",
+                        transition: "transform 0.2s ease",
                       }}
                     >
-                      {service.category}
-                    </div>
-                    <div className="service-name-table">{service.service}</div>
-                    <div className="service-meta">
-                      <span className="price-mobile">
-                        {formatPricing(service.pricing)}
-                      </span>
+                      <path d="M6 9l6 6 6-6" />
+                    </svg>
+                  </button>
+                )}
+              </div>
+
+              <div className="card-footer">
+                <div className="action-buttons">
+                  {service.pricing !== "Contact for quote" &&
+                  service.pricing !== "Free Benefit" ? (
+                    <button
+                      className="book-btn"
+                      onClick={(e) => handleBookService(service, e)}
+                    >
                       <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                      >
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                        <circle cx="12" cy="7" r="4" />
+                      </svg>
+                      Book Now
+                    </button>
+                  ) : (
+                    <button
+                      className="contact-btn-small"
+                      onClick={(e) => handleContactQuote(service, e)}
+                    >
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                      >
+                        <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
+                      </svg>
+                      Get Quote
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Table View */}
+        <div
+          className={`services-table-container custom-scrollbar ${viewMode === "table" ? "active" : ""}`}
+          style={{ height: "calc(100vh - 160px)", overflowY: "auto" }}
+        >
+          <table className="services-table">
+            <thead>
+              <tr>
+                <th className="column-service">Service</th>
+                <th className="column-description">Description</th>
+                <th className="column-pricing">Individual Pricing</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredServices.map((service, index) => (
+                <tr
+                  key={service.id}
+                  className={`service-row ${expandedTableRow === index ? "expanded" : ""}`}
+                  onClick={() => toggleTableView(index)}
+                  data-service-id={service.id}
+                >
+                  <td className="service-cell">
+                    <div className="service-content">
+                      <div
+                        className="service-category"
+                        style={{
+                          backgroundColor: getCategoryColor(service.category),
+                        }}
+                      >
+                        {service.category}
+                      </div>
+                      <div className="service-name-table">
+                        {service.service}
+                      </div>
+                      <div className="service-meta">
+                        <span className="price-mobile">
+                          {formatPricing(service.pricing)}
+                        </span>
+                        {/* <svg
                         className={`expand-icon ${expandedTableRow === index ? "expanded" : ""}`}
                         width="16"
                         height="16"
@@ -1126,91 +1130,93 @@ export default function Services() {
                         strokeWidth="2"
                       >
                         <path d="M6 9l6 6 6-6" />
-                      </svg>
+                      </svg> */}
+                      </div>
                     </div>
-                  </div>
-                </td>
-                <td className="description-cell">
-                  <div className="description-content-table">
-                    {expandedTableRow === index ||
-                    service.description.length < 100 ? (
-                      service.description
-                    ) : (
-                      <>
-                        {service.description.slice(0, 100)}...
-                        <span className="read-more-table">Read more</span>
-                      </>
-                    )}
-                  </div>
-                </td>
-                <td className="pricing-cell">
-                  <div className="pricing-content-table">
-                    <div className="price-amount-table">
-                      {formatPricing(service.pricing)}
+                  </td>
+                  <td className="description-cell">
+                    <div className="description-content-table">
+                      {expandedTableRow === index ||
+                      service.description.length < 100 ? (
+                        service.description
+                      ) : (
+                        <>
+                          {service.description.slice(0, 100)}...
+                          <span className="read-more-table">Read more</span>
+                        </>
+                      )}
                     </div>
-                    {typeof service.pricing === "string" &&
-                    service.pricing.toLowerCase().includes("inr") ? (
-                      <div className="price-note-table">One-time payment</div>
-                    ) : service.pricing === "Free Benefit" ? (
-                      <div className="price-note-table">Complimentary</div>
-                    ) : service.pricing === "Contact for quote" ? (
-                      <div className="price-note-table">Custom quote</div>
-                    ) : (
-                      <div className="price-note-table">Per service</div>
-                    )}
-                    {service.pricing !== "Contact for quote" &&
-                    service.pricing !== "Free Benefit" ? (
-                      <button
-                        className="book-btn-table"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleBookService(service, e);
-                        }}
-                      >
-                        Book Now
-                      </button>
-                    ) : (
-                      <button
-                        className="book-btn-table"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleContactQuote(service, e);
-                        }}
-                        style={{ background: "#3B82F6" }}
-                      >
-                        Get Quote
-                      </button>
-                    )}
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      {/* Footer */}
-      <div className="services-footer">
-        <div className="footer-note">
-          <span className="note-icon">ℹ️</span>
-          <div>
-            All prices are inclusive of taxes. Services can be booked
-            individually or combined into customized packages for better value.
-          </div>
+                  </td>
+                  <td className="pricing-cell">
+                    <div className="pricing-content-table">
+                      <div className="price-amount-table">
+                        {formatPricing(service.pricing)}
+                      </div>
+                      {typeof service.pricing === "string" &&
+                      service.pricing.toLowerCase().includes("inr") ? (
+                        <div className="price-note-table">One-time payment</div>
+                      ) : service.pricing === "Free Benefit" ? (
+                        <div className="price-note-table">Complimentary</div>
+                      ) : service.pricing === "Contact for quote" ? (
+                        <div className="price-note-table">Custom quote</div>
+                      ) : (
+                        <div className="price-note-table">Per service</div>
+                      )}
+                      {service.pricing !== "Contact for quote" &&
+                      service.pricing !== "Free Benefit" ? (
+                        <button
+                          className="book-btn-table"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleBookService(service, e);
+                          }}
+                        >
+                          Book Now
+                        </button>
+                      ) : (
+                        <button
+                          className="book-btn-table"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleContactQuote(service, e);
+                          }}
+                          style={{ background: "#3B82F6" }}
+                        >
+                          Get Quote
+                        </button>
+                      )}
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
-        <button className="contact-btn-main" onClick={handleContactPackage}>
-          Contact for Custom Package
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-          >
-            <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
-          </svg>
-        </button>
+
+        {/* Footer */}
+        <div className="services-footer">
+          <div className="footer-note">
+            <span className="note-icon">ℹ️</span>
+            <div>
+              All prices are inclusive of taxes. Services can be booked
+              individually or combined into customized packages for better
+              value.
+            </div>
+          </div>
+          <button className="contact-btn-main" onClick={handleContactPackage}>
+            Contact for Custom Package
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
   );

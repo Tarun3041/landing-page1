@@ -21,6 +21,8 @@ export default function Navbar({ activePage, setActivePage }: any) {
         ))}
       </nav>
 
+      
+
       {/* Mobile Hamburger */}
       <div className="mobile-nav">
         <button className="hamburger" onClick={() => setOpen(!open)}>

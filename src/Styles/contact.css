@@ -19,8 +19,8 @@
   gap: 10px;
   background: white;
   border-radius: 24px;
-  overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+  overflow: auto;
+  /* box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08); */
 }
 
 /* ===========================
@@ -29,13 +29,13 @@
 .contact-info {
   background: linear-gradient(135deg, #FF8C00 0%, #9F4579 100%);
   color: white;
-  padding: 10px 10px;
+  padding: 10px 20px;
   display: flex;
   flex-direction: column;
 }
 
 .contact-header {
-  margin-bottom: 40px;
+  margin-bottom: 10px;
 }
 
 .contact-header h1 {
@@ -55,16 +55,16 @@
    FEATURES LIST
 =========================== */
 .contact-features {
-  flex: 1;
-  margin-bottom: 40px;
+  /* flex: 1; */
+  margin-bottom: 0px;
 }
 
 .feature-item {
   display: flex;
   align-items: flex-start;
-  gap: 15px;
-  margin-bottom: 25px;
-  padding: 15px;
+  gap: 5px;
+  margin-bottom: 5px;
+  padding: 5px;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 12px;
   transition: transform 0.2s ease;
@@ -103,7 +103,7 @@
    CONTACT DETAILS
 =========================== */
 .contact-details {
-  padding-top: 20px;
+  padding-top: 5px;
   border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
 
@@ -133,16 +133,11 @@
   padding: 10px 10px;
   background: white;
 }
-
-.form-header {
-  margin-bottom: 30px;
-}
-
 .form-header h2 {
   font-size: 1.8rem;
   font-weight: 700;
   color: #333;
-  margin-bottom: 8px;
+  /* margin-bottom: 8px; */
   background: linear-gradient(135deg, #FF8C00 0%, #9F4579 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -160,7 +155,7 @@
 .demo-form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 6px;
 }
 
 .form-group {
@@ -208,7 +203,7 @@
 }
 
 .form-textarea {
-  min-height: 120px;
+  min-height: 80px;
   resize: vertical;
 }
 
@@ -253,7 +248,7 @@
 .success-message {
   background: linear-gradient(135deg, #00b894, #00a085);
   color: white;
-  padding: 25px;
+  padding: 5px;
   border-radius: 12px;
   text-align: center;
   animation: fadeIn 0.5s ease;
@@ -347,11 +342,11 @@
   }
   
   .contact-info {
-    padding: 40px 30px;
+    padding: 5px 1px;
   }
   
   .contact-form-section {
-    padding: 40px 30px;
+    padding: 10px 10px;
   }
 }
 
@@ -362,7 +357,7 @@
   
   .contact-info,
   .contact-form-section {
-    padding: 30px 20px;
+    padding: 10px 20px;
   }
   
   .contact-header h1 {
@@ -376,5 +371,39 @@
   .feature-item {
     flex-direction: column;
     gap: 10px;
+  }
+}
+
+.demo-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;   /* 2 equal columns */
+  gap: 8px 14px;                  /* row-gap column-gap */
+}
+
+/* Every field block */
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Message textarea should be full width */
+.form-group textarea {
+  resize: vertical;
+}
+
+/* Make textarea row span both columns */
+.form-group:has(textarea) {
+  grid-column: 1 / -1;
+}
+
+/* Submit button full width */
+.submit-btn {
+  grid-column: 1 / -1;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .demo-form {
+    grid-template-columns: 1fr;
   }
 }
