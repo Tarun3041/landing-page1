@@ -77,7 +77,7 @@ export default function Plans() {
         style={{ height: "calc(100vh - 112px)", overflowY: "auto" }}
       >
         {/* ================= BASIC CARE ================= */}
-        <div className="plan-card plan-basic custom-scrollbar">
+        <div className="plan-card plan-basic custom-scrollbar1">
           <div className="plan-card-main">
             <div className="plan-header">
               <div className="flex items-center justify-between">
@@ -102,26 +102,28 @@ export default function Plans() {
                 <div className="highlight-item">
                   <span className="highlight-icon">🔒</span>
                   <div>
-                    <div className="highlight-title">24x7 SOS Helpline</div>
-                    <div className="highlight-desc">
-                      Unlimited emergency calls
+                    <div className="highlight-title">
+                      24x7 SOS Helpline (Unlimited emergency calls )
                     </div>
+                    {/* <div className="highlight-desc"></div> */}
                   </div>
                 </div>
                 <div className="highlight-item">
                   <span className="highlight-icon">👨‍⚕️</span>
                   <div>
-                    <div className="highlight-title">Doctor Consultations</div>
-                    <div className="highlight-desc">
-                      12 GP + 4 Specialist/year
+                    <div className="highlight-title">
+                      Doctor Consultations ( 12 GP + 4 Specialist/year )
                     </div>
+                    {/* <div className="highlight-desc"></div> */}
                   </div>
                 </div>
                 <div className="highlight-item">
                   <span className="highlight-icon">📊</span>
                   <div>
-                    <div className="highlight-title">Health Checkup</div>
-                    <div className="highlight-desc">Annual 80+ parameters</div>
+                    <div className="highlight-title">
+                      Health Checkup (Annual 80+ parameters )
+                    </div>
+                    {/* <div className="highlight-desc"></div> */}
                   </div>
                 </div>
               </div>
@@ -307,7 +309,7 @@ export default function Plans() {
         </div>
 
         {/* ================= ADVANCED CARE ================= */}
-        <div className="plan-card plan-advanced custom-scrollbar">
+        <div className="plan-card plan-advanced custom-scrollbar1">
           <div className="plan-card-main">
             <div className="plan-header">
               <div className="flex items-center justify-between">
@@ -333,27 +335,27 @@ export default function Plans() {
                   <span className="highlight-icon">⚡</span>
                   <div>
                     <div className="highlight-title">
-                      Unlimited Consultations
+                      Unlimited Consultations ( GP + Specialist + Nutritionist)
                     </div>
-                    <div className="highlight-desc">
-                      GP + Specialist + Nutritionist
-                    </div>
+                    {/* <div className="highlight-desc"></div> */}
                   </div>
                 </div>
                 <div className="highlight-item">
                   <span className="highlight-icon">🤝</span>
                   <div>
-                    <div className="highlight-title">24 Companion Visits</div>
-                    <div className="highlight-desc">
-                      Hospital & social visits
+                    <div className="highlight-title">
+                      24 Companion Visits ( Hospital & social visits )
                     </div>
+                    {/* <div className="highlight-desc"></div> */}
                   </div>
                 </div>
                 <div className="highlight-item">
                   <span className="highlight-icon">🏠</span>
                   <div>
-                    <div className="highlight-title">Home Health Discount</div>
-                    <div className="highlight-desc">15% off all services</div>
+                    <div className="highlight-title">
+                      Home Health Discount (15% off all services
+                      )</div>
+                    {/* <div className="highlight-desc"></div> */}
                   </div>
                 </div>
               </div>

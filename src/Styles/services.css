@@ -116,8 +116,8 @@
 }
 
 .filter-btn.active {
-  background: #3b82f6;
-  border-color: #3b82f6;
+  background: #9a3f7b;
+  /* border-color: #9a3f7b; */
   color: white;
 }
 
@@ -262,7 +262,7 @@
 .book-btn {
   flex: 1;
   padding: 10px 16px;
-  background: linear-gradient(to right, #f98c1d 0%, #f98c1d 100%);
+  background: linear-gradient(to right, #9a3f7b, #9a3f7b);
   color: white;
   border: none;
   border-radius: 8px;
@@ -481,7 +481,7 @@
 .price-amount-table {
   font-size: 1.1rem;
   font-weight: 800;
-  color: #059669;
+  color: #fa8d1d;
   letter-spacing: -0.3px;
 }
 
@@ -493,7 +493,7 @@
 
 .book-btn-table {
   padding: 8px 16px;
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  background: linear-gradient(135deg, #9a3f7b , #9a3f7b );
   color: white;
   border: none;
   border-radius: 8px;
