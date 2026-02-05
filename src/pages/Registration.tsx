@@ -92,10 +92,26 @@ export default function Register({
             confirmPassword: "",
             selectedPlan,
           });
-          toast.success(response.data.message);
-          if (onSwitchToLogin) {
-            onSwitchToLogin();
-          }
+          // toast.success(response.data.message);
+          let anvayyaUserPayload = {
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+            countryCode: formData.countryCode,
+            mobileNumber: formData.phone,
+            emailID: formData.email,
+            password: formData.password,
+            userType: "user",
+          };
+          registerUserInAnvayaaApi(anvayyaUserPayload).then((res: any) => {
+            if (res.status != 200) {
+              toast.error(res.response.data.message);
+            } else {
+              toast.success("Registered Succesfully");
+              if (onSwitchToLogin) {
+                onSwitchToLogin();
+              }
+            }
+          });
         } else {
           toast.error(response.response.data.message);
         }
@@ -194,10 +210,10 @@ export default function Register({
     const newErrors: Partial<FormData> = {};
     if (!formData.firstName.trim()) {
       newErrors.firstName = "First Name is required";
-    } 
-     if (!formData.lastName.trim()) {
-       newErrors.lastName = "Last Name is required";
-     } 
+    }
+    if (!formData.lastName.trim()) {
+      newErrors.lastName = "Last Name is required";
+    }
     if (!formData.email.trim()) {
       newErrors.email = "Email is required";
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
@@ -237,46 +253,15 @@ export default function Register({
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
-    // try {
-    // const registrationData = {
-    //   name: formData.name,
-    //   mobileNumber: `${formData.countryCode}${formData.phone}`,
-    //   email: formData.email,
-    //   password: formData.password,
-    // };
-
-    // const response = (await registerUserApi(registrationData)) as {
-    //   status: number;
-    //   data: { message: string };
-    //   response?: { data?: { message?: string } };
-    // };
-
-    // if (response.status === 200) {
-    //   setShowOtpModal(true);
-    //   toast.success(response.data.message);
-    // } else {
-    //   toast.error(response.response?.data?.message || "Registration failed");
-    // }
-
     try {
       setIsSubmitting(true);
       let encryptedPassword = encryptPassword(formData.password);
       let registrationData = {
-        name: `${formData.firstName}${formData.lastName}`,
+        name: `${formData.firstName} ${formData.lastName}`,
         mobileNumber: `${formData.countryCode}${formData.phone}`,
         email: formData.email,
         password: encryptedPassword,
       };
-        let anvayyaUserPayload = {
-          firstName: formData.firstName,
-          lastName: formData.lastName,
-          countryCode: formData.countryCode,
-          mobileNumber: formData.phone,
-          emailID: formData.email,
-          password: formData.password,
-          userType: "user",
-        };
-        console.log("anvayyaUserPayload", anvayyaUserPayload);
       const response = (await registerUserApi(registrationData)) as {
         status: number;
         data: { message: string };
@@ -285,20 +270,6 @@ export default function Register({
       if (response.status === 200) {
         setShowOtpModal(true);
         toast.success(response.data.message);
-        let anvayyaUserPayload = {
-          firstName: formData.firstName,
-          lastName: formData.lastName,
-          countryCode: formData.countryCode,
-          mobileNumber: formData.phone,
-          emailID: formData.email,
-          password: formData.password,
-          userType: "user",
-        };
-        registerUserInAnvayaaApi(anvayyaUserPayload).then((res: any) => {
-          if (res) {
-            console.log("res", res);
-          }
-        });
       } else {
         toast.error(response.response?.data?.message || "Registration failed");
       }

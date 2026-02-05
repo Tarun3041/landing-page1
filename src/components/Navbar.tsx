@@ -91,6 +91,24 @@ export default function Navbar() {
 
             {showPopover && (
               <div className="user-popover">
+                     <p className="user-name">
+                  <span className="icon">
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <circle cx="12" cy="7" r="4" />
+                      <path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2" />
+                    </svg>
+                  </span>
+                  {user.userId}
+                </p>
                 <p className="user-name">
                   <span className="icon">
                     <svg
@@ -126,7 +144,7 @@ export default function Navbar() {
                       <polyline points="3 7 12 13 21 7" />
                     </svg>
                   </span>
-                  {user.email}
+                  {user.emailID}
                 </p>
 
                 <p className="user-phone">

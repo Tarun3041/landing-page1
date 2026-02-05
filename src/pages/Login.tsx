@@ -1,7 +1,11 @@
 import { useState, type ChangeEvent, type FormEventHandler } from "react";
 import Loader from "./Loader";
 import "../styles/registration.css";
-import { encryptPassword, loginUserApi } from "../Service";
+import {
+  encryptPassword,
+  initPushNotifications,
+  loginUserApi,
+} from "../Service";
 import { toast } from "react-toastify";
 
 interface LoginData {
@@ -123,49 +127,57 @@ export default function Login({
   //     setIsSubmitting(false);
   //   }
   // };
+
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
-    if (!validateForm()) {
-      return;
-    }
+
+    if (!validateForm()) return;
+
     setIsSubmitting(true);
+
+    // ✅ Init push safely
+    await initPushNotifications();
+
     try {
-      let encryptedPassword = encryptPassword(loginData.password);
-      let loginDataPayload = {
-        email: loginData.email,
-        password: encryptedPassword,
+      const storedKeys = localStorage.getItem("keys");
+      const keys = storedKeys ? JSON.parse(storedKeys) : {};
+
+      const loginDataPayload = {
+        userName: loginData.email,
+        password: loginData.password,
+        auth: keys?.keys?.auth || null,
+        p256dh: keys?.keys?.p256dh || null,
+        endpoint: keys?.endpoint || null,
+        ServerType: "Tcp",
+        platform: "web",
       };
-      // Type the response properly
+
       const response: any = await loginUserApi(loginDataPayload);
 
-      if (response.status === 200) {
-        const { user, message } = response.data;
+      if (response?.status === 200) {
+        const { data, message } = response.data;
+
         toast.success(message);
         localStorage.setItem("isUserLoggedIn", "true");
-        localStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem("user", JSON.stringify(data));
 
         if (onSuccess) {
           onSuccess();
         }
-
-        // Redirect using window.location
         window.location.href = "/";
       } else {
-        // Handle non-200 responses
         toast.error(
-          response.response?.data?.message ||
-            response.message ||
+          response?.response?.data?.message ||
+            response?.message ||
             "Login failed",
         );
       }
     } catch (error: any) {
-      console.error("Login error:", error);
-      // Handle different error formats
       const errorMessage =
-        error.response?.data?.message ||
-        error.message ||
-        error.data?.message ||
+        error?.response?.data?.message ||
+        error?.message ||
         "An error occurred during login";
+
       toast.error(errorMessage);
     } finally {
       setIsSubmitting(false);
