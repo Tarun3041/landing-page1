@@ -16,7 +16,6 @@ import OtpInput from "./OtpInput";
 import { toast } from "react-toastify";
 import Loader from "./Loader";
 
-
 interface FormData {
   name: string;
   email: string;
@@ -60,7 +59,7 @@ export default function Register({
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [otpModal, setOtpModal] = useState(false);
+  // const [otpModal, setOtpModal] = useState(false);
   const [isRegistered, setIsRegistered] = useState(false);
   const [showOtpModal, setShowOtpModal] = useState(false);
   const [errors, setErrors] = useState<Partial<FormData>>({});
@@ -71,7 +70,6 @@ export default function Register({
   });
   const [otp, setOtp] = useState("");
   const isVerifyingRef = useRef(false);
-
 
   useEffect(() => {
     if (otp.length === 6) {
@@ -231,35 +229,32 @@ export default function Register({
     return Object.keys(newErrors).length === 0;
   };
 
-const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
-  e.preventDefault();
+  const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
+    e.preventDefault();
+    if (!validateForm()) return;
+    // try {
+    // const registrationData = {
+    //   name: formData.name,
+    //   mobileNumber: `${formData.countryCode}${formData.phone}`,
+    //   email: formData.email,
+    //   password: formData.password,
+    // };
 
-  if (!validateForm()) return;
+    // const response = (await registerUserApi(registrationData)) as {
+    //   status: number;
+    //   data: { message: string };
+    //   response?: { data?: { message?: string } };
+    // };
 
-  setIsSubmitting(true);
+    // if (response.status === 200) {
+    //   setShowOtpModal(true);
+    //   toast.success(response.data.message);
+    // } else {
+    //   toast.error(response.response?.data?.message || "Registration failed");
+    // }
 
-  try {
-    const registrationData = {
-      name: formData.name,
-      mobileNumber: `${formData.countryCode}${formData.phone}`,
-      email: formData.email,
-      password: formData.password,
-    };
-
-    const response = (await registerUserApi(registrationData)) as {
-      status: number;
-      data: { message: string };
-      response?: { data?: { message?: string } };
-    };
-
-    if (response.status === 200) {
-      setShowOtpModal(true);
-      toast.success(response.data.message);
-    } else {
-      toast.error(response.response?.data?.message || "Registration failed");
-    }
-    setIsSubmitting(true);
     try {
+      setIsSubmitting(true);
       let encryptedPassword = encryptPassword(formData.password);
       let registrationData = {
         name: formData.name,
@@ -267,15 +262,19 @@ const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
         email: formData.email,
         password: encryptedPassword,
       };
-      registerUserApi(registrationData).then((response: any) => {
-        if (response.status === 200) {
-          setOtpModal(true);
-          toast.success(response.data.message);
-        }
-      });
+      const response = (await registerUserApi(registrationData)) as {
+        status: number;
+        data: { message: string };
+        response?: { data?: { message?: string } };
+      };
+      if (response.status === 200) {
+        setShowOtpModal(true);
+        toast.success(response.data.message);
+      } else {
+        toast.error(response.response?.data?.message || "Registration failed");
+      }
     } catch (error) {
-      console.error("Registration error:", error);
-      alert("There was an error during registration. Please try again.");
+      setIsSubmitting(false);
     } finally {
       setIsSubmitting(false);
     }
