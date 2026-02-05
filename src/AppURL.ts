@@ -1,5 +1,5 @@
 export const ENV_URL = "http://localhost:3202/api/";
-console.log("ENV_DOMAIN :", getDomain());
+export const ENV_URL1 = "https://secureone.anvayaa.in/api/";
 
 //export const ENV_URL1 = getUrl();
 export const ENV_DOMAIN = getDomain();

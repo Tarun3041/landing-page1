@@ -10,6 +10,7 @@ import parsePhoneNumberFromString from "libphonenumber-js";
 import {
   encryptPassword,
   registerUserApi,
+  registerUserInAnvayaaApi,
   verifyUserByEmailApi,
 } from "../Service";
 import OtpInput from "./OtpInput";
@@ -270,6 +271,20 @@ export default function Register({
       if (response.status === 200) {
         setShowOtpModal(true);
         toast.success(response.data.message);
+        let anvayyaUserPayload = {
+          // firstName: formData.firstName,
+          // lastName: formData.lastName,
+          countryCode: formData.countryCode,
+          mobileNumber: formData.phone,
+          emailID: formData.email,
+          password: formData.password,
+          userType: "user",
+        };
+        registerUserInAnvayaaApi(anvayyaUserPayload).then((res: any) => {
+          if (res) {
+            console.log("res", res);
+          }
+        });
       } else {
         toast.error(response.response?.data?.message || "Registration failed");
       }

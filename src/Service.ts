@@ -2,6 +2,7 @@ import axios from "axios";
 import {
   loginUserUrl,
   logoutUserUrl,
+  registerUserInAnvayaaUrl,
   registerUserUrl,
   requestDemoUrl,
   SECRET_KEY,
@@ -16,6 +17,23 @@ export const registerUserApi = async (registrationData: any) => {
         "Content-Type": "application/json",
       },
     });
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const registerUserInAnvayaaApi = async (registrationData: any) => {
+  try {
+    const response = await axios.post(
+      registerUserInAnvayaaUrl(),
+      registrationData,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
     return response;
   } catch (error) {
     return error;
