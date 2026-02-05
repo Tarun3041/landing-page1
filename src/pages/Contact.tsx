@@ -28,13 +28,13 @@ export default function Contact() {
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
-
+    if (name === "phone") {
+      if (!/^\d*$/.test(value)) return;
+    }
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
-
-    // Clear error when user starts typing
     if (errors[name as keyof FormData]) {
       setErrors((prev) => ({
         ...prev,
@@ -60,8 +60,16 @@ export default function Contact() {
       newErrors.email = "Please enter a valid email address";
     }
 
+    if (!formData.phone.trim()) {
+      newErrors.phone = "Mobile Number is required";
+    }
+
     if (formData.phone && !/^[\d\s\-\+\(\)]+$/.test(formData.phone)) {
       newErrors.phone = "Please enter a valid phone number";
+    }
+
+    if (!formData.message.trim()) {
+      newErrors.message = "Last name is required";
     }
 
     setErrors(newErrors);
@@ -243,7 +251,9 @@ export default function Contact() {
               )}
             </div>
             <div className="form-group">
-              <label className="form-label">Phone Number (Optional)</label>
+              <label className="form-label">
+                Phone Number <span className="required">*</span>
+              </label>
               <input
                 type="tel"
                 name="phone"
@@ -257,7 +267,9 @@ export default function Contact() {
               )}
             </div>
             <div className="form-group">
-              <label className="form-label">Message (Optional)</label>
+              <label className="form-label">
+                Message <span className="required">*</span>
+              </label>
               <textarea
                 name="message"
                 value={formData.message}
@@ -265,6 +277,9 @@ export default function Contact() {
                 className="form-textarea"
                 placeholder="Tell us about your specific needs or questions..."
               />
+              {errors.message && (
+                <span className="error-text">{errors.message}</span>
+              )}
             </div>
             <button
               type="submit"
