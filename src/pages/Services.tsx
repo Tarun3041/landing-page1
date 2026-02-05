@@ -714,6 +714,23 @@ export default function Services() {
     setLoading(false);
   }, []);
 
+  const getPricingLabel = (pricing: string | number) => {
+    if (typeof pricing === "number") {
+      return "Per service";
+    }
+    if (pricing.toLowerCase().includes("inr")) {
+      return "One-time payment";
+    }
+    if (pricing === "Free Benefit") {
+      return "Complimentary";
+    }
+    if (pricing === "Contact for quote") {
+      return "Custom quote";
+    }
+    return "Per service";
+  };
+
+
   const categories = [
     "All",
     ...new Set(services.map((s) => s.category).filter(Boolean)),
@@ -1188,18 +1205,10 @@ export default function Services() {
                   <td className="pricing-cell">
                     <div className="pricing-content-table">
                       <div className="price-amount-table">
-                        {formatPricing(service.pricing)}
+                        {formatPricing(service.pricing)} 
+                        <span style={{fontSize:"12px",color:"#737373",paddingLeft:"10px"}}>({getPricingLabel(service.pricing)})</span>
                       </div>
-                      {typeof service.pricing === "string" &&
-                      service.pricing.toLowerCase().includes("inr") ? (
-                        <div className="price-note-table">One-time payment</div>
-                      ) : service.pricing === "Free Benefit" ? (
-                        <div className="price-note-table">Complimentary</div>
-                      ) : service.pricing === "Contact for quote" ? (
-                        <div className="price-note-table">Custom quote</div>
-                      ) : (
-                        <div className="price-note-table">Per service</div>
-                      )}
+
                       {service.pricing !== "Contact for quote" &&
                       service.pricing !== "Free Benefit" ? (
                         <button

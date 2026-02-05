@@ -166,7 +166,7 @@ export default function Contact() {
                 </p>
               </div>
             </div>
-            <div className="feature-item">
+            {/* <div className="feature-item">
               <div className="feature-icon">💬</div>
               <div className="feature-content">
                 <h3>Q&A Session</h3>
@@ -174,7 +174,7 @@ export default function Contact() {
                   Ask questions and get immediate answers from our care experts.
                 </p>
               </div>
-            </div>
+            </div> */}
           </div>
           <div className="contact-details">
             <div className="detail-item">

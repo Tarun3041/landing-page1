@@ -310,6 +310,7 @@
   transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   background: #fafafa;
   border-top: 1px solid rgba(0, 0, 0, 0.05);
+  margin: 0px 12px;
 }
 
 .plan-details-panel.expanded {
@@ -317,7 +318,8 @@
 }
 
 .details-container {
-  padding: 20px;
+  padding: 10px;
+  /* margin: 0px 20px; */
 }
 
 .details-header {

@@ -350,6 +350,11 @@
   }
 }
 
+@media (min-width: 1580px) {
+  .contact-container {
+    height: 600px !important;
+  }
+}
 @media (max-width: 480px) {
   .contact-page {
     padding: 20px 15px;
