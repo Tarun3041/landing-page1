@@ -18,7 +18,8 @@ import { toast } from "react-toastify";
 import Loader from "./Loader";
 
 interface FormData {
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   countryCode: string;
   phone: string;
@@ -48,7 +49,8 @@ export default function Register({
   onSwitchToLogin,
 }: RegisterProps) {
   const [formData, setFormData] = useState<FormData>({
-    name: "",
+    firstName: "",
+    lastName: "",
     email: "",
     countryCode: "+91",
     phone: "",
@@ -81,7 +83,8 @@ export default function Register({
       verifyUserByEmailApi(verifyEmailData).then((response: any) => {
         if (response.status === 200) {
           setFormData({
-            name: "",
+            firstName: "",
+            lastName: "",
             email: "",
             countryCode: "+91",
             phone: "",
@@ -189,11 +192,12 @@ export default function Register({
 
   const validateForm = (): boolean => {
     const newErrors: Partial<FormData> = {};
-    if (!formData.name.trim()) {
-      newErrors.name = "Name is required";
-    } else if (formData.name.trim().length < 3) {
-      newErrors.name = "Name must be at least 3 characters";
-    }
+    if (!formData.firstName.trim()) {
+      newErrors.firstName = "First Name is required";
+    } 
+     if (!formData.lastName.trim()) {
+       newErrors.lastName = "Last Name is required";
+     } 
     if (!formData.email.trim()) {
       newErrors.email = "Email is required";
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
@@ -258,11 +262,21 @@ export default function Register({
       setIsSubmitting(true);
       let encryptedPassword = encryptPassword(formData.password);
       let registrationData = {
-        name: formData.name,
+        name: `${formData.firstName}${formData.lastName}`,
         mobileNumber: `${formData.countryCode}${formData.phone}`,
         email: formData.email,
         password: encryptedPassword,
       };
+        let anvayyaUserPayload = {
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          countryCode: formData.countryCode,
+          mobileNumber: formData.phone,
+          emailID: formData.email,
+          password: formData.password,
+          userType: "user",
+        };
+        console.log("anvayyaUserPayload", anvayyaUserPayload);
       const response = (await registerUserApi(registrationData)) as {
         status: number;
         data: { message: string };
@@ -272,8 +286,8 @@ export default function Register({
         setShowOtpModal(true);
         toast.success(response.data.message);
         let anvayyaUserPayload = {
-          // firstName: formData.firstName,
-          // lastName: formData.lastName,
+          firstName: formData.firstName,
+          lastName: formData.lastName,
           countryCode: formData.countryCode,
           mobileNumber: formData.phone,
           emailID: formData.email,
@@ -368,22 +382,40 @@ export default function Register({
 
             <form className="register-form" onSubmit={handleSubmit}>
               <input type="hidden" name="selectedPlan" value={selectedPlan} />
-              <div className="form-group1">
+              <div className="form-group">
                 <label className="form-label">
-                  User Name <span style={{ color: "#d32f2f" }}>*</span>
+                  First Name <span style={{ color: "#d32f2f" }}>*</span>
                 </label>
                 <input
                   type="text"
-                  name="name"
-                  value={formData.name}
+                  name="firstName" // ✅ FIXED
+                  value={formData.firstName}
                   onChange={handleChange}
                   className="form-input"
-                  placeholder="Enter your full name"
+                  placeholder="Enter first name"
                 />
-                {errors.name && (
-                  <div className="error-message">{errors.name}</div>
+                {errors.firstName && (
+                  <div className="error-message">{errors.firstName}</div>
                 )}
               </div>
+
+              <div className="form-group">
+                <label className="form-label">
+                  Last Name <span style={{ color: "#d32f2f" }}>*</span>
+                </label>
+                <input
+                  type="text"
+                  name="lastName" // ✅ FIXED
+                  value={formData.lastName}
+                  onChange={handleChange}
+                  className="form-input"
+                  placeholder="Enter last name"
+                />
+                {errors.lastName && (
+                  <div className="error-message">{errors.lastName}</div>
+                )}
+              </div>
+
               <div className="form-group">
                 <label className="form-label">
                   Email <span style={{ color: "#d32f2f" }}>*</span>
@@ -520,42 +552,6 @@ export default function Register({
             length={6}
             onChangeOtp={(val) => {
               setOtp(val);
-
-              // Only run when exactly 6 digits AND not already verifying
-              if (val.length === 6 && !isVerifyingRef.current) {
-                isVerifyingRef.current = true; // lock
-
-                let verifyEmailData = {
-                  email: formData.email,
-                  otp: val,
-                };
-
-                verifyUserByEmailApi(verifyEmailData)
-                  .then((response: any) => {
-                    if (response.status === 200) {
-                      setFormData({
-                        name: "",
-                        email: "",
-                        countryCode: "+91",
-                        phone: "",
-                        password: "",
-                        confirmPassword: "",
-                        selectedPlan,
-                      });
-
-                      toast.success(response.data.message);
-                      setShowOtpModal(false);
-
-                      if (onSwitchToLogin) {
-                        onSwitchToLogin();
-                      }
-                    }
-                  })
-
-                  .finally(() => {
-                    isVerifyingRef.current = false; // unlock
-                  });
-              }
             }}
             onClose={() => setShowOtpModal(false)}
           />
