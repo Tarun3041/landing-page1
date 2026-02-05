@@ -56,7 +56,7 @@ export default function Navbar() {
         localStorage.clear();
         toast.success(response.data.message);
         setShowPopover(false);
-        navigate("/");
+        navigate("/login");
       } else {
         toast.error(response.response.data.message);
       }

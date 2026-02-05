@@ -495,6 +495,7 @@
 import { useState, useEffect } from "react";
 import "../styles/services.css";
 import { useNavigate } from "react-router-dom";
+import AuthFlow from "./Authflow";
 
 interface Service {
   id: string; // Added ID for API integration
@@ -515,6 +516,7 @@ export default function Services() {
   const [services, setServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+    const [showRegistration, setShowRegistration] = useState(false);
   let isUserLoggedIn = localStorage.getItem("isUserLoggedIn") === "true";
 
   // API Configuration
@@ -768,11 +770,11 @@ export default function Services() {
   // API function to handle booking
   const handleBookService = async (service: Service, e: React.MouseEvent) => {
     e.stopPropagation();
-    // if (isUserLoggedIn) {
-    //   setShowRegistration(false);
-    // } else {
-    //   setShowRegistration(true);
-    // }
+   if (isUserLoggedIn) {
+     setShowRegistration(false);
+   } else {
+     setShowRegistration(true);
+   }
     // try {
     //   // Create booking session
     //   const bookingData = {
@@ -931,6 +933,31 @@ export default function Services() {
       </div>
     );
   }
+   if (showRegistration) {
+      return (
+        <div className="register-overlay">
+          <div className="register-modal">
+            {/* Top bar */}
+            {/* <div className="registration-header">
+            <button
+              className="back-btn1"
+              onClick={() => {
+                setShowRegistration(false);
+                setSelectedPlan("");
+              }}
+            >
+              ← Back
+            </button>
+  
+            <div className="selected-plan-label">
+              Selected Plan: <strong>{selectedPlan}</strong>
+            </div>
+          </div> */}
+            <AuthFlow />
+          </div>
+        </div>
+      );
+    }
 
   return (
     <div className="services-container">
