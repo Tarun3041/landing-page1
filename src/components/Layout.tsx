@@ -1,11 +1,14 @@
 import Header from "./Header";
+import { Outlet } from "react-router-dom";
 import "../styles/layout.css";
 
-export default function Layout({ children, activePage, setActivePage }: any) {
+export default function Layout() {
   return (
     <>
-      <Header activePage={activePage} setActivePage={setActivePage} />
-      <main className="app-content ">{children}</main>
+      <Header />
+      <main className="app-content">
+        <Outlet />
+      </main>
     </>
   );
 }

@@ -1,14 +1,18 @@
-/* Desktop Nav */
+/* =======================
+   Desktop Navigation
+======================= */
+
 .desktop-nav {
   display: flex;
   gap: 20px;
+  align-items: center;
 }
 
 .nav-btn {
   background: none;
   border: none;
   font-size: 15px;
-  padding: 1px 12px;
+  padding: 6px 12px;
   cursor: pointer;
   color: #942e79;
   font-weight: 500;
@@ -24,13 +28,92 @@
   content: "";
   position: absolute;
   left: 10%;
-  bottom: -6px;
+  bottom: -4px;
   width: 80%;
   height: 2px;
   background: #0f4c75;
 }
 
-/* Mobile Nav */
+/* =======================
+   User Avatar & Popover
+======================= */
+
+.user-avatar {
+  margin-left: auto;
+  position: relative;
+  z-index: 3000;
+}
+
+.avatar-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #01627d;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.user-popover {
+  position: absolute;
+  top: 48px;
+  right: 0;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 12px 14px;
+  min-width: 220px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  z-index: 9999;
+}
+
+.user-popover p {
+  margin: 4px 0;
+  font-size: 14px;
+  color: #334155;
+}
+
+.user-name {
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.user-email,
+.user-phone {
+  font-size: 13px;
+  color: #475569;
+}
+
+.user-popover hr {
+  margin: 10px 0;
+  border: none;
+  height: 1px;
+  background: #e5e7eb;
+}
+
+.logout-btn {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 8px 0;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  color: #b91c1c;
+  text-align: left;
+}
+
+.logout-btn:hover {
+  color: #991b1b;
+}
+
+/* =======================
+   Mobile Navigation
+======================= */
+
 .mobile-nav {
   display: none;
   position: relative;
@@ -50,7 +133,7 @@
   background: white;
   width: 180px;
   border-radius: 10px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -76,12 +159,215 @@
   color: #0f4c75;
 }
 
-/* Responsive Breakpoints */
+/* =======================
+   Responsive
+======================= */
+
 @media (max-width: 768px) {
   .desktop-nav {
     display: none;
   }
+
   .mobile-nav {
     display: block;
   }
+}
+
+/* =======================
+   Enhanced User Popover
+======================= */
+
+.user-popover {
+  position: absolute;
+  top: 48px;
+  right: 0;
+  background: #ffffff;
+  border: 1px solid #e1e5e9;
+  border-radius: 12px;
+  padding: 16px;
+  min-width: 240px;
+  box-shadow: 
+    0 10px 40px rgba(0, 0, 0, 0.08),
+    0 2px 12px rgba(0, 0, 0, 0.04);
+  z-index: 9999;
+  animation: popoverSlideIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: top right;
+}
+
+/* Popover arrow/pointer */
+.user-popover::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  right: 14px;
+  width: 16px;
+  height: 16px;
+  background: #ffffff;
+  border-left: 1px solid #e1e5e9;
+  border-top: 1px solid #e1e5e9;
+  transform: rotate(45deg);
+  z-index: 1;
+}
+
+/* User info section */
+.popover-header {
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f1f5f9;
+  margin-bottom: 12px;
+}
+
+.user-name {
+  font-weight: 600;
+  color: #0f172a;
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.user-email,
+.user-phone {
+  font-size: 13px;
+  color: #64748b;
+  line-height: 1.4;
+  display: block;
+}
+
+.user-email {
+  margin-bottom: 2px;
+}
+
+/* Menu items section */
+.popover-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.popover-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: none;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #334155;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s ease;
+}
+
+.popover-item:hover {
+  background-color: #f8fafc;
+  color: #0f172a;
+  transform: translateX(2px);
+}
+
+.popover-item svg {
+  width: 16px;
+  height: 16px;
+  color: #64748b;
+}
+
+.popover-item:hover svg {
+  color: #01627d;
+}
+
+/* Logout button specific styling */
+.logout-btn {
+  margin-top: 8px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #fecaca;
+  background-color: #fef2f2;
+  color: #dc2626;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+}
+
+.logout-btn:hover {
+  background-color: #fee2e2;
+  color: #b91c1c;
+  border-color: #fca5a5;
+}
+
+/* Popover animation */
+@keyframes popoverSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Fade out animation */
+.user-popover.fade-out {
+  animation: popoverSlideOut 0.15s ease forwards;
+}
+
+@keyframes popoverSlideOut {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.95);
+  }
+}
+
+/* Responsive adjustments for mobile */
+@media (max-width: 768px) {
+  .user-popover {
+    position: fixed;
+    top: 60px;
+    right: 16px;
+    left: 16px;
+    min-width: auto;
+    width: calc(100% - 32px);
+    max-width: 280px;
+    margin: 0 auto;
+  }
+  
+  .user-popover::before {
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+  }
+}
+
+/* Icon + text alignment */
+.user-popover p {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  color: #64748b;
+  margin-top: 6px;
+}
+
+/* Slight emphasis for name */
+.user-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.user-email,
+.user-phone {
+  font-size: 13px;
+  color: #475569;
 }

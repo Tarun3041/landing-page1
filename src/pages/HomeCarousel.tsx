@@ -115,11 +115,11 @@ const HomePage: React.FC = () => {
                 </div>
                 <h1 className="slide-title">{slide.title}</h1>
                 <p className="slide-text">{slide.content}</p>
-                <div className="slide-actions">
+                {/* <div className="slide-actions">
                   <button className="cta-button" style={{ '--btn-color': slide.color } as React.CSSProperties}>
                     Learn More
                   </button>
-                </div>
+                </div> */}
               </div>
             </div>
           ))}

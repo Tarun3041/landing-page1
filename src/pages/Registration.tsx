@@ -385,10 +385,11 @@ export default function Register({
                   <div className="error-message">{errors.email}</div>
                 )}
               </div>
-              <div className="form-group ">
+              <div className="form-group">
                 <label className="form-label">
                   Mobile Number <span style={{ color: "#d32f2f" }}>*</span>
                 </label>
+
                 <div className="phone-input-group">
                   <select
                     name="countryCode"
@@ -402,12 +403,13 @@ export default function Register({
                       </option>
                     ))}
                   </select>
+
                   <input
                     type="tel"
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    className="form-input"
+                    className="form-input phone-input"
                     placeholder="Enter phone number"
                   />
                 </div>

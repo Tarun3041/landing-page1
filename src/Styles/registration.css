@@ -35,11 +35,11 @@
   letter-spacing: 1.5px;
   text-transform: uppercase;
   opacity: 0.9;
-  margin-bottom: 12px;
+  margin-bottom: 5px;
 }
 
 .register-title {
-  font-size: 1.8rem;
+  font-size: 1.2rem;
   font-weight: 800;
   /* margin-bottom: 15px; */
   letter-spacing: -0.5px;
@@ -227,7 +227,7 @@ logi
 
 .country-dropdown {
   width:50%;
-  padding: 8px;
+  padding: 5px;
   border: 2px solid #e1e5e9;
   border-radius: 12px;
   background: #fafbfc;
@@ -466,7 +466,7 @@ logi
   }
   
   .register-header {
-    padding: 10px 20px;
+    padding: 5px 10px;
   }
   
   .register-form-section {
@@ -711,4 +711,54 @@ logi
 
 @keyframes spin {
   to { transform: rotate(360deg); }
+}
+
+.phone-input-group {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color 0.3s ease;
+}
+
+.phone-input-group :active{  outline: none;
+  border-color: #FF8C00;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.15);}
+
+
+
+.country-dropdown {
+  padding: 10px 12px;
+  border: none;
+  /* border-right: 1px solid #ddd; */
+  /* background-color: #fff; */
+  font-size: 14px;
+  outline: none;
+  max-width: 100px;
+  border-radius: 12px;
+  cursor: pointer;
+  
+}
+
+.country-dropdown option {
+  padding: 8px;
+}
+
+.phone-input {
+  flex: 1;
+  padding: 10px 12px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+}
+
+
+
+.error-message {
+  color: #d32f2f;
+  font-size: 12px;
+  margin-top: 4px;
 }

@@ -2,19 +2,25 @@ import { useState, useEffect } from "react";
 import "../styles/plans.css";
 import Register from "./Registration"; // Import the Register component
 import AuthFlow from "./Authflow";
+import { useNavigate } from "react-router-dom";
 
 export default function Plans() {
   const [open, setOpen] = useState<string | null>(null);
   const [showRegistration, setShowRegistration] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<string>("");
+  let isUserLoggedIn = localStorage.getItem("isUserLoggedIn") === "false"
 
   const toggle = (id: string) => {
     setOpen(open === id ? null : id);
   };
 
+  const navigate = useNavigate();
+
   const handleGetStarted = (planType: string) => {
     setSelectedPlan(planType);
-    setShowRegistration(true);
+    if (isUserLoggedIn) {
+      setShowRegistration(true);
+    }
     // Scroll to top when showing registration
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -41,12 +47,12 @@ export default function Plans() {
     };
   }, [showRegistration]);
 
-if (showRegistration) {
-  return (
-    <div className="register-overlay">
-      <div className="register-modal">
-        {/* Top bar */}
-        {/* <div className="registration-header">
+  if (showRegistration) {
+    return (
+      <div className="register-overlay">
+        <div className="register-modal">
+          {/* Top bar */}
+          {/* <div className="registration-header">
           <button
             className="back-btn1"
             onClick={() => {
@@ -61,24 +67,25 @@ if (showRegistration) {
             Selected Plan: <strong>{selectedPlan}</strong>
           </div>
         </div> */}
-        <AuthFlow />
+          <AuthFlow />
+        </div>
       </div>
-    </div>
-  );
-}
-
-
+    );
+  }
 
   return (
     <div className="page">
       <div className="plans-header">
-        <h1 className="plans-title" >Elder Care Plans</h1>
+        <h1 className="plans-title">Elder Care Plans</h1>
         {/* <p className="plans-subtitle">
           Choose the perfect care plan for your loved ones
         </p> */}
       </div>
 
-      <div className="plans-grid custom-scrollbar" style={{height:"calc(100vh - 112px)",overflowY:"auto"}}>
+      <div
+        className="plans-grid custom-scrollbar"
+        style={{ height: "calc(100vh - 112px)", overflowY: "auto" }}
+      >
         {/* ================= BASIC CARE ================= */}
         <div className="plan-card plan-basic custom-scrollbar">
           <div className="plan-card-main">

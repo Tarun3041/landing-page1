@@ -1,14 +1,22 @@
 import { useState, useEffect, useRef } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import "../styles/navbar.css";
 import { logoutUserApi } from "../Service";
 import { toast } from "react-toastify";
 
-const tabs = ["Home", "Plans", "Services", "Contact", "Login"];
+const tabs = [
+  { label: "Home", path: "/" },
+  { label: "Plans", path: "/plans" },
+  { label: "Services", path: "/services" },
+  { label: "Contact", path: "/contact" },
+  { label: "Login", path: "/login" },
+];
 
-export default function Navbar({ activePage, setActivePage }: any) {
+export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [showPopover, setShowPopover] = useState(false);
   const popoverRef = useRef<HTMLDivElement | null>(null);
+  const navigate = useNavigate();
 
   const isUserLoggedIn = localStorage.getItem("isUserLoggedIn") === "true";
   const user = isUserLoggedIn
@@ -26,30 +34,29 @@ export default function Navbar({ activePage, setActivePage }: any) {
         setShowPopover(false);
       }
     };
+
     if (showPopover) {
       document.addEventListener("mousedown", handleClickOutside);
     }
+
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [showPopover]);
 
   const visibleTabs = isUserLoggedIn
-    ? tabs.filter((tab) => tab !== "Login")
+    ? tabs.filter((t) => t.label !== "Login")
     : tabs;
 
   const logoutHandler = () => {
-    let logoutData = {
-      email: user.email,
-    };
+    const logoutData = { email: user.email };
+
     logoutUserApi(logoutData).then((response: any) => {
       if (response.status === 200) {
-        localStorage.removeItem("isUserLoggedIn");
-        localStorage.removeItem("user");
+        localStorage.clear();
         toast.success(response.data.message);
         setShowPopover(false);
-        setActivePage("Home");
-        window.location.reload();
+        navigate("/");
       } else {
         toast.error(response.response.data.message);
       }
@@ -58,138 +65,92 @@ export default function Navbar({ activePage, setActivePage }: any) {
 
   return (
     <>
+      {/* Desktop Navigation */}
       <nav className="navbar desktop-nav">
         {visibleTabs.map((tab) => (
-          <button
-            key={tab}
-            className={activePage === tab ? "nav-btn active" : "nav-btn"}
-            onClick={() => setActivePage(tab)}
+          <NavLink
+            key={tab.label}
+            to={tab.path}
+            className={({ isActive }) =>
+              isActive ? "nav-btn active" : "nav-btn"
+            }
+            style={{ textDecoration: "none" }}
           >
-            {tab}
-          </button>
+            {tab.label}
+          </NavLink>
         ))}
+
         {isUserLoggedIn && (
-          <div
-            className="user-avatar"
-            style={{
-              marginLeft: "auto",
-              position: "relative",
-            }}
-            ref={popoverRef}
-          >
+          <div className="user-avatar" ref={popoverRef}>
             <div
+              className="avatar-circle"
               onClick={() => setShowPopover((prev) => !prev)}
-              style={{
-                width: "36px",
-                height: "36px",
-                borderRadius: "50%",
-                backgroundColor: "#01627d",
-                color: "#fff",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                cursor: "pointer",
-                fontWeight: 600,
-              }}
             >
               {userInitial}
             </div>
+
             {showPopover && (
-              <div
-                className="user-popover"
-                style={{
-                  position: "absolute",
-                  top: "45px",
-                  right: 0,
-                  background: "#fff",
-                  border: "1px solid #ddd",
-                  borderRadius: "6px",
-                  padding: "10px",
-                  minWidth: "180px",
-                  zIndex: 1000,
-                }}
-              >
-                <p style={{ margin: 0, fontWeight: 600 }}>
-                  <svg
-                    className="h-8 w-8 text-slate-500"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    stroke-width="2"
-                    stroke="currentColor"
-                    fill="none"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    {" "}
-                    <path stroke="none" d="M0 0h24v24H0z" />{" "}
-                    <circle cx="12" cy="7" r="4" />{" "}
-                    <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-                  </svg>
+              <div className="user-popover">
+                <p className="user-name">
+                  <span className="icon">
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <circle cx="12" cy="7" r="4" />
+                      <path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2" />
+                    </svg>
+                  </span>
                   {user.name}
                 </p>
-                <p style={{ margin: "4px 0", fontSize: "14px" }}>
-                  <svg
-                    className="h-8 w-8 text-slate-500"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    stroke-width="2"
-                    stroke="currentColor"
-                    fill="none"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    {" "}
-                    <path stroke="none" d="M0 0h24v24H0z" />{" "}
-                    <rect x="3" y="5" width="18" height="14" rx="2" />{" "}
-                    <polyline points="3 7 12 13 21 7" />
-                  </svg>
+
+                <p className="user-email">
+                  <span className="icon">
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <rect x="3" y="5" width="18" height="14" rx="2" />
+                      <polyline points="3 7 12 13 21 7" />
+                    </svg>
+                  </span>
                   {user.email}
                 </p>
-                <p style={{ margin: "4px 0", fontSize: "14px" }}>
-                  <svg
-                    className="h-8 w-8 text-slate-500"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    stroke-width="2"
-                    stroke="currentColor"
-                    fill="none"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    {" "}
-                    <path stroke="none" d="M0 0h24v24H0z" />{" "}
-                    <rect x="7" y="4" width="10" height="16" rx="1" />{" "}
-                    <line x1="11" y1="5" x2="13" y2="5" />{" "}
-                    <line x1="12" y1="17" x2="12" y2="17.01" />
-                  </svg>{" "}
+
+                <p className="user-phone">
+                  <span className="icon">
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <rect x="7" y="4" width="10" height="16" rx="2" />
+                      <line x1="11" y1="5" x2="13" y2="5" />
+                      <line x1="12" y1="17" x2="12" y2="17.01" />
+                    </svg>
+                  </span>
                   {user.mobileNumber}
                 </p>
+
                 <hr />
-                <button
-                  className="nav-btn"
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "8px",
-                  }}
-                  onClick={logoutHandler}
-                >
-                  <svg
-                    className="h-8 w-8 text-slate-500"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-                    <polyline points="16 17 21 12 16 7" />
-                    <line x1="21" y1="12" x2="9" y2="12" />
-                  </svg>
+                <button className="logout-btn" onClick={logoutHandler}>
                   Logout
                 </button>
               </div>
@@ -197,37 +158,35 @@ export default function Navbar({ activePage, setActivePage }: any) {
           </div>
         )}
       </nav>
-      {/* Mobile Hamburger */}
+
+      {/* Mobile Navigation */}
       <div className="mobile-nav">
         <button className="hamburger" onClick={() => setOpen(!open)}>
           ☰
         </button>
+
         {open && (
           <div className="mobile-menu">
             {visibleTabs.map((tab) => (
-              <button
-                key={tab}
-                className={
-                  activePage === tab ? "mobile-btn active" : "mobile-btn"
+              <NavLink
+                key={tab.label}
+                to={tab.path}
+                className={({ isActive }) =>
+                  isActive ? "mobile-btn active" : "mobile-btn"
                 }
-                onClick={() => {
-                  setActivePage(tab);
-                  setOpen(false);
-                }}
+                onClick={() => setOpen(false)}
               >
-                {tab}
-              </button>
+                {tab.label}
+              </NavLink>
             ))}
-            {/* Mobile User */}
+
             {isUserLoggedIn && (
               <button
                 className="mobile-btn"
                 onClick={() => {
-                  localStorage.removeItem("isUserLoggedIn");
-                  localStorage.removeItem("user");
+                  localStorage.clear();
                   setOpen(false);
-                  setActivePage("Home");
-                  window.location.reload();
+                  navigate("/");
                 }}
               >
                 Logout

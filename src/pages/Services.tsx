@@ -494,6 +494,7 @@
 
 import { useState, useEffect } from "react";
 import "../styles/services.css";
+import { useNavigate } from "react-router-dom";
 
 interface Service {
   id: string; // Added ID for API integration
@@ -703,6 +704,7 @@ export default function Services() {
   }, []);
   */
 
+  const navigate = useNavigate();
   // Using static data for now
   useEffect(() => {
     setServices(staticServices);
@@ -862,44 +864,45 @@ export default function Services() {
   };
 
   const handleContactPackage = async () => {
-    try {
-      const userEmail = localStorage.getItem("userEmail") || "";
-      const userName = localStorage.getItem("userName") || "";
+    // try {
+    //   const userEmail = localStorage.getItem("userEmail") || "";
+    //   const userName = localStorage.getItem("userName") || "";
 
-      // API call for custom package (commented for now)
-      /*
-      const response = await fetch(`${API_BASE_URL}/api/contact/custom-package`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        },
-        body: JSON.stringify({
-          userEmail,
-          userName,
-          interest: 'Custom Package',
-          timestamp: new Date().toISOString()
-        })
-      });
+    //   // API call for custom package (commented for now)
+    //   /*
+    //   const response = await fetch(`${API_BASE_URL}/api/contact/custom-package`, {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //       'Authorization': `Bearer ${localStorage.getItem('token')}`
+    //     },
+    //     body: JSON.stringify({
+    //       userEmail,
+    //       userName,
+    //       interest: 'Custom Package',
+    //       timestamp: new Date().toISOString()
+    //     })
+    //   });
       
-      if (response.ok) {
-        alert('Custom package request submitted! Our team will contact you soon.');
-      } else {
-        throw new Error('Failed to submit request');
-      }
-      */
+    //   if (response.ok) {
+    //     alert('Custom package request submitted! Our team will contact you soon.');
+    //   } else {
+    //     throw new Error('Failed to submit request');
+    //   }
+    //   */
 
-      // For now, open email client
-      const subject = "Custom Package Inquiry";
-      const body = `Hello,\n\nI am interested in learning more about your custom packages for elder care services.\n\nPlease contact me with available options and pricing.\n\nThank you!`;
-      window.open(
-        `mailto:contact@eldercare.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`,
-        "_blank",
-      );
-    } catch (error) {
-      console.error("Custom package error:", error);
-      alert("Failed to submit request. Please try again.");
-    }
+    //   // For now, open email client
+    //   const subject = "Custom Package Inquiry";
+    //   const body = `Hello,\n\nI am interested in learning more about your custom packages for elder care services.\n\nPlease contact me with available options and pricing.\n\nThank you!`;
+    //   window.open(
+    //     `mailto:contact@eldercare.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`,
+    //     "_blank",
+    //   );
+    // } catch (error) {
+    //   console.error("Custom package error:", error);
+    //   alert("Failed to submit request. Please try again.");
+    // }
+    navigate("/contact");
   };
 
   if (loading) {

@@ -127,7 +127,7 @@ export default function Contact() {
     <div className="contact-page">
       <div
         className="contact-container custom-scrollbar"
-        style={{ height: "calc(100vh - 63px)", overflowY: "auto" }}
+        style={{ height: "calc(100vh - 73px)", overflowY: "auto" }}
       >
         {/* Left Side - Information */}
         <div className="contact-info">
