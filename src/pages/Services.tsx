@@ -515,10 +515,11 @@ export default function Services() {
   const [services, setServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  let isUserLoggedIn = localStorage.getItem("isUserLoggedIn") === "true";
 
   // API Configuration
-//   const API_BASE_URL =
-//     process.env.REACT_APP_API_BASE_URL || "https://api.yourdomain.com";
+  //   const API_BASE_URL =
+  //     process.env.REACT_APP_API_BASE_URL || "https://api.yourdomain.com";
 
   // Static data fallback (commented out API integration for now)
   const staticServices: Service[] = [
@@ -767,59 +768,62 @@ export default function Services() {
   // API function to handle booking
   const handleBookService = async (service: Service, e: React.MouseEvent) => {
     e.stopPropagation();
+    // if (isUserLoggedIn) {
+    //   setShowRegistration(false);
+    // } else {
+    //   setShowRegistration(true);
+    // }
+    // try {
+    //   // Create booking session
+    //   const bookingData = {
+    //     serviceId: service.id,
+    //     serviceName: service.service,
+    //     serviceCode: service.serviceCode,
+    //     price: service.pricing,
+    //     category: service.category,
+    //     timestamp: new Date().toISOString(),
+    //     userId: localStorage.getItem("userId") || "guest",
+    //   };
 
-    try {
-      // Create booking session
-      const bookingData = {
-        serviceId: service.id,
-        serviceName: service.service,
-        serviceCode: service.serviceCode,
-        price: service.pricing,
-        category: service.category,
-        timestamp: new Date().toISOString(),
-        userId: localStorage.getItem("userId") || "guest",
-      };
+    //   // Save booking to local storage temporarily
+    //   localStorage.setItem("currentBooking", JSON.stringify(bookingData));
 
-      // Save booking to local storage temporarily
-      localStorage.setItem("currentBooking", JSON.stringify(bookingData));
+    //   // API call to create booking session (commented for now)
+    //   /*
+    //   const response = await fetch(`${API_BASE_URL}/api/bookings/create-session`, {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //       'Authorization': `Bearer ${localStorage.getItem('token')}`
+    //     },
+    //     body: JSON.stringify(bookingData)
+    //   });
 
-      // API call to create booking session (commented for now)
-      /*
-      const response = await fetch(`${API_BASE_URL}/api/bookings/create-session`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        },
-        body: JSON.stringify(bookingData)
-      });
-      
-      if (!response.ok) {
-        throw new Error('Failed to create booking session');
-      }
-      
-      const sessionData = await response.json();
-      
-      // Redirect to payment page with session ID
-      if (sessionData.paymentUrl) {
-        window.location.href = sessionData.paymentUrl;
-      } else if (sessionData.sessionId) {
-        // Redirect to your payment page
-        window.location.href = `/payment/${sessionData.sessionId}`;
-      }
-      */
+    //   if (!response.ok) {
+    //     throw new Error('Failed to create booking session');
+    //   }
 
-      // For now, redirect to a mock payment page with service ID
-      window.location.href = `/payment?serviceId=${service.id}&service=${encodeURIComponent(service.service)}&price=${service.pricing}`;
-    } catch (error) {
-      console.error("Booking error:", error);
-      alert("Failed to initiate booking. Please try again.");
-    }
+    //   const sessionData = await response.json();
+
+    //   // Redirect to payment page with session ID
+    //   if (sessionData.paymentUrl) {
+    //     window.location.href = sessionData.paymentUrl;
+    //   } else if (sessionData.sessionId) {
+    //     // Redirect to your payment page
+    //     window.location.href = `/payment/${sessionData.sessionId}`;
+    //   }
+    //   */
+
+    //   // For now, redirect to a mock payment page with service ID
+    //   window.location.href = `/payment?serviceId=${service.id}&service=${encodeURIComponent(service.service)}&price=${service.pricing}`;
+    // } catch (error) {
+    //   console.error("Booking error:", error);
+    //   alert("Failed to initiate booking. Please try again.");
+    // }
   };
 
   const handleContactQuote = async (service: Service, e: React.MouseEvent) => {
     e.stopPropagation();
-
     try {
       // Prepare contact data
       const contactData = {
@@ -883,7 +887,7 @@ export default function Services() {
     //       timestamp: new Date().toISOString()
     //     })
     //   });
-      
+
     //   if (response.ok) {
     //     alert('Custom package request submitted! Our team will contact you soon.');
     //   } else {
@@ -920,7 +924,7 @@ export default function Services() {
     return (
       <div className="services-container">
         <div className="error-message">
-          <h3>⚠️ Error Loading Services</h3>
+          <h3>Error Loading Services</h3>
           <p>{error}</p>
           <button onClick={() => window.location.reload()}>Try Again</button>
         </div>
@@ -965,7 +969,10 @@ export default function Services() {
         ))}
       </div>
 
-      <div style={{ maxHeight: "calc(100vh - 165px)", overflowY: "auto" }} className="custom-scrollbar">
+      <div
+        style={{ maxHeight: "calc(100vh - 165px)", overflowY: "auto" }}
+        className="custom-scrollbar"
+      >
         {/* Cards View */}
         <div
           className={`services-grid ${viewMode === "cards" ? "active" : ""} custom-scrollbar`}

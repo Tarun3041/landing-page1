@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import "../styles/plans.css";
-import Register from "./Registration"; // Import the Register component
 import AuthFlow from "./Authflow";
 import { useNavigate } from "react-router-dom";
 
@@ -8,30 +7,21 @@ export default function Plans() {
   const [open, setOpen] = useState<string | null>(null);
   const [showRegistration, setShowRegistration] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<string>("");
-  let isUserLoggedIn = localStorage.getItem("isUserLoggedIn") === "false"
+  let isUserLoggedIn = localStorage.getItem("isUserLoggedIn") === "true";
 
   const toggle = (id: string) => {
     setOpen(open === id ? null : id);
   };
 
-  const navigate = useNavigate();
-
   const handleGetStarted = (planType: string) => {
     setSelectedPlan(planType);
     if (isUserLoggedIn) {
+      setShowRegistration(false);
+    } else {
       setShowRegistration(true);
     }
     // Scroll to top when showing registration
     window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
-  const handleRegistrationComplete = () => {
-    setShowRegistration(false);
-    setSelectedPlan("");
-    // You could show a success message or redirect to dashboard here
-    alert(
-      `Thank you for choosing ${selectedPlan} plan! Registration completed.`,
-    );
   };
 
   // Hide body scroll when registration is shown
