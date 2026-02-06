@@ -526,7 +526,7 @@ export default function Services() {
   // Static data fallback (commented out API integration for now)
   const staticServices: Service[] = [
     {
-      id: "SRV001",
+      id: "ENVANV001",
       service: "Companion Visits of Care Manager - 4 hrs each",
       description:
         "Trained Geriatric professionals for: Accompanied medical appointment to clinics/hospitals, Accompanied Emergency hospitalization visit, Hospital admission, billing, insurance related paper work, claim related supports, discharge and digitalize medical records, Accompanied diagnostics visits, Accompanied planned hospitalization /surgery assistance, Home visits to organize pill box / any other medication as needed, CGHS retired employees dispensary support for medication procurement, Non medical visits to accompany for banks. airport, railway station , movie, shopping, dinner, temple etc.",
@@ -535,7 +535,7 @@ export default function Services() {
       serviceCode: "COMPANION_VISIT",
     },
     {
-      id: "SRV002",
+      id: "ENVANV002",
       service:
         "Pain Screening for Shoulder, Knee, Back and joints + Physical Therapy - Online Consultation",
       description:
@@ -545,7 +545,7 @@ export default function Services() {
       serviceCode: "PAIN_SCREENING",
     },
     {
-      id: "SRV003",
+      id: "ENVANV003",
       service:
         "Memory Screening - Neuro degenerative Condition Management Screening",
       description:
@@ -555,7 +555,7 @@ export default function Services() {
       serviceCode: "MEMORY_SCREENING",
     },
     {
-      id: "SRV004",
+      id: "ENVANV004",
       service: "Geriatric Specialist Medicine Teleconsultation",
       description:
         "Providers can evaluate the patient's physical, cognitive, and emotional health using telemedicine tools, adapting assessments to focus on areas of primary concern for elderly patients, such as mobility, memory, and mood.",
@@ -564,7 +564,7 @@ export default function Services() {
       serviceCode: "GERIATRIC_TELECONSULT",
     },
     {
-      id: "SRV005",
+      id: "ENVANV005",
       service: "General Physician Tele consultation",
       description: "Doctor consultation available both in Audio and Video mode",
       pricing: "300",
@@ -572,7 +572,7 @@ export default function Services() {
       serviceCode: "GP_TELECONSULT",
     },
     {
-      id: "SRV006",
+      id: "ENVANV006",
       service: "Doctor Home Visit",
       description:
         "General Check-Up and Health Assessment: A physician can conduct routine exams, such as checking blood pressure, heart rate, and other vital signs. Medication Review: The doctor can review the patient's medications to ensure proper usage and to avoid any adverse interactions.",
@@ -581,7 +581,7 @@ export default function Services() {
       serviceCode: "DOCTOR_HOME_VISIT",
     },
     {
-      id: "SRV007",
+      id: "ENVANV007",
       service: "Physiotherapy Home Visit",
       description:
         "Trained physiotherapist home services to support with pain management, posture support and any other mobility needs",
@@ -590,7 +590,7 @@ export default function Services() {
       serviceCode: "PHYSIO_HOME_VISIT",
     },
     {
-      id: "SRV008",
+      id: "ENVANV008",
       service: "Nurse on Call Services - 2 hrs",
       description:
         "Health Vital Monitoring, IV, Injection support, Stroma bag, catheter change, and other nursing services",
@@ -599,7 +599,7 @@ export default function Services() {
       serviceCode: "NURSE_ON_CALL",
     },
     {
-      id: "SRV009",
+      id: "ENVANV009",
       service: "Wound Dressing Services",
       description: "Wound Care for open wounds",
       pricing: "1800",
@@ -607,7 +607,7 @@ export default function Services() {
       serviceCode: "WOUND_DRESSING",
     },
     {
-      id: "SRV010",
+      id: "ENVANV010",
       service: "Trained Care Taker 24hrs - Per day",
       description:
         "Hygiene Support: Assisting with bathing, grooming, and toileting. Mobility Assistance: Helping clients move around the house safely, preventing falls and injuries. Feeding clients who need assistance. A caretaker provides companionship, which can help reduce loneliness and support mental health, especially for elderly clients or those with limited social interactions.",
@@ -616,7 +616,7 @@ export default function Services() {
       serviceCode: "CARETAKER_24H",
     },
     {
-      id: "SRV011",
+      id: "ENVANV011",
       service: "Home Nursing Care - 12 hrs per day",
       description:
         "Nurses routinely check and record vital signs (e.g., blood pressure, temperature, pulse, respiratory rate) to monitor the patient's health status. Medication Administration and Management, Wound Care and Dressing Changes, Assistance with Mobility and basic exercises, Catheter and Colostomy Care, Tube Feeding and Nutritional Support.",
@@ -625,7 +625,7 @@ export default function Services() {
       serviceCode: "NURSING_12H",
     },
     {
-      id: "SRV012",
+      id: "ENVANV012",
       service: "Home Nursing Care - 24 hrs per day",
       description:
         "Nurses routinely check and record vital signs (e.g., blood pressure, temperature, pulse, respiratory rate) to monitor the patient's health status. Medication Administration and Management, Wound Care and Dressing Changes, Assistance with Mobility and Physical Therapy, Catheter and Colostomy Care, Tube Feeding and Nutritional Support.",
@@ -634,7 +634,7 @@ export default function Services() {
       serviceCode: "NURSING_24H",
     },
     {
-      id: "SRV013",
+      id: "ENVANV013",
       service: "Medical Equipment for Sale/Rental",
       description:
         "(Monthly Rentals - Manual Medical Bed, Oxygen concentrator, wheel chair) AIR BED (Sale) - Depending on equipment type",
@@ -643,7 +643,7 @@ export default function Services() {
       serviceCode: "MEDICAL_EQUIPMENT",
     },
     {
-      id: "SRV014",
+      id: "ENVANV014",
       service: "Audiologist Home Consultation",
       description:
         "At-home audiometry test to evaluate hearing levels (low/medium/high), followed by an audiologist teleconsultation. Includes 25% discount on hearing aids if needed. MRP - INR 2000/consult",
@@ -652,7 +652,7 @@ export default function Services() {
       serviceCode: "AUDIOLOGIST_HOME",
     },
     {
-      id: "SRV015",
+      id: "ENVANV015",
       service: "Dementia Caregiver App",
       description:
         "Anvayaa's Dementia Caregiver App is India's first comprehensive digital solution designed to support family members and professional caregivers of elders with dementia. The app integrates clinical guidance, cognitive therapy, emergency support, and care coordination tools—all in one intuitive platform.",
@@ -661,7 +661,7 @@ export default function Services() {
       serviceCode: "DEMENTIA_APP",
     },
     {
-      id: "SRV016",
+      id: "ENVANV016",
       service:
         "Emergency Smart Watch + Remote Monitoring + 1 Year SOS services",
       description:
@@ -789,6 +789,7 @@ export default function Services() {
     e.stopPropagation();
     if (isUserLoggedIn) {
       setShowRegistration(false);
+      navigate("/payment");
     } else {
       setShowRegistration(true);
     }

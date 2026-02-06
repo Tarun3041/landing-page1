@@ -8,6 +8,7 @@ export default function Plans() {
   const [showRegistration, setShowRegistration] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<string>("");
   let isUserLoggedIn = localStorage.getItem("isUserLoggedIn") === "true";
+  const navigate = useNavigate();
 
   const toggle = (id: string) => {
     setOpen(open === id ? null : id);
@@ -17,10 +18,10 @@ export default function Plans() {
     setSelectedPlan(planType);
     if (isUserLoggedIn) {
       setShowRegistration(false);
+      navigate("/payment");
     } else {
       setShowRegistration(true);
     }
-    // Scroll to top when showing registration
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -127,7 +128,6 @@ export default function Plans() {
                   </div>
                 </div>
               </div>
-
               <div className="plan-actions">
                 <button
                   className="plan-btn"
@@ -353,8 +353,8 @@ export default function Plans() {
                   <span className="highlight-icon">🏠</span>
                   <div>
                     <div className="highlight-title">
-                      Home Health Discount (15% off all services
-                      )</div>
+                      Home Health Discount (15% off all services )
+                    </div>
                     {/* <div className="highlight-desc"></div> */}
                   </div>
                 </div>

@@ -14,6 +14,12 @@ export const REGISTER_USER_IN_ANVAYAA = "login/userRegistration";
 export const SECRET_KEY = "mySuperSecretKey123!@#";
 export const VITE_API_KEY =
   "BJK5qarfkTAdI6jO22woxjp7UsIWt_JTrK7nXYxF0lneYaLl0wXJZnjC4sVn8L_rEPhkMDbku-MbTi5M9zjsYio";
+export const PAYMENT_URL = "planmaster/buyPlan";
+export const PACKAGE_PURCHASE_ONLINE = "api/planmaster/buyPlanOnline";
+export const CCAVENUE_PLAN_PAYMENT = "api/planmaster/createPlanPayment";
+export const HDFC_PLAN_PAYMENT = "api/planmaster/createHDFCPlanPayment";
+export const PAYTM_PLAN_PAYMENT = "api/planmaster/createPaytmPlanPayment";
+export const UPDATE_ONLINE_PLANSTATUS = "api/planmaster/updateOnlinePlanStatus";
 
 export function registerUserUrl() {
   return applicationURL + REGISTER_USER;
@@ -41,4 +47,24 @@ export function requestDemoUrl() {
 
 export function registerUserInAnvayaaUrl() {
   return applicationURL1 + REGISTER_USER_IN_ANVAYAA;
+}
+
+export function paymentUrl() {
+  return applicationURL1 + PAYMENT_URL;
+}
+
+export function buyPlanOnlineUrl() {
+  return applicationURL1 + PACKAGE_PURCHASE_ONLINE;
+}
+
+export function ccAvenuePlanPaymentUrl() {
+  return applicationURL1 + CCAVENUE_PLAN_PAYMENT;
+}
+
+export function hdfcPlanPaymentUrl() {
+  return applicationURL1 + HDFC_PLAN_PAYMENT;
+}
+
+export function paytmPlanPaymentUrl() {
+  return applicationURL1 + PAYTM_PLAN_PAYMENT;
 }

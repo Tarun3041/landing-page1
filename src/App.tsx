@@ -7,6 +7,7 @@ import Contact from "./pages/Contact";
 import About from "./pages/About";
 import AuthFlow from "./pages/Authflow";
 import { ToastContainer } from "react-toastify";
+import PackagePurchase from "./pages/PurchasePack";
 
 export default function App() {
   return (
@@ -19,9 +20,9 @@ export default function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<AuthFlow />} />
+          <Route path="/payment" element={<PackagePurchase />} />
         </Route>
       </Routes>
-
       <ToastContainer
         position="top-center"
         autoClose={2000}
