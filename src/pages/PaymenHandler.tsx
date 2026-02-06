@@ -543,7 +543,7 @@ export const PaymentHandler: React.FC<PaymentHandlerProps> = ({
         onClick={onOnlinePay}
         style={{ marginTop: 16 }}
       >
-        Pay Now | ₹{" "}
+        Pay Now | {" "}
         {packageDetails?.actualPrice}
       </Button>
     </Card>

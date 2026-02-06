@@ -205,7 +205,7 @@ const PackagePurchase: React.FC = () => {
               <div className="price-box">
                 <span className="currency">INR</span>
                 <span className="amount">
-                  ₹ {service?.pricing || plan?.price || "0"}
+                  {service?.pricing || plan?.price || "0"}
                 </span>
                 <span className="period">
                   /{service?.occurance || plan?.occurance || "year"}
