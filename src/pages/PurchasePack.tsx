@@ -23,24 +23,10 @@ const PackagePurchase: React.FC = () => {
     : null;
   const params = new URLSearchParams(location.search);
   const userID: any = localStorage.getItem("userID") || params.get("userID");
+  const plan = JSON.parse(localStorage.getItem("plan") || "{}");
+  const service = JSON.parse(localStorage.getItem("service") || "{}");
 
   const handleOfflinePayment = async () => {};
-
-  const packageDetails = {
-    planDetails: {
-      description:
-        "Premium elder care plan with medical coordination and emergency support.",
-      planDetails: [
-        "24/7 Emergency Support",
-        "Dedicated Relationship Manager",
-        "Doctor & Hospital Assistance",
-        "Care Coordination",
-      ],
-    },
-    currencyType: "INR",
-    actualPriceINR: 100,
-    occurance: "Weekly",
-  };
 
   const handlePaymentOptionClick = async ({ Method }: { Method: any }) => {
     setSelectedMethod(Method.key);
@@ -160,56 +146,77 @@ const PackagePurchase: React.FC = () => {
           </h4>
         }
       >
-        <div className="plan-section">
-          <Text className="plan-description">
-            {packageDetails?.planDetails?.description}
-          </Text>
-          <ul className="plan-benefits">
-            {packageDetails?.planDetails?.planDetails?.map(
-              (point: string, index: number) => (
-                <li key={index}>✔ {point}</li>
-              ),
+        {plan && (
+          <div className="plan-section">
+            {/* Plan description */}
+            <Text className="plan-description">{plan?.description}</Text>
+
+            {/* Plan highlights */}
+            {Array.isArray(plan?.highlights) && (
+              <ul className="plan-benefits">
+                {plan.highlights.map(
+                  (item: { icon: string; text: string }, index: number) => (
+                    <li key={index}>
+                      <span style={{ marginRight: "6px" }}>{item.icon}</span>
+                      {item.text}
+                    </li>
+                  ),
+                )}
+              </ul>
             )}
-          </ul>
-        </div>
+          </div>
+        )}
+        {service && (
+          <div className="plan-section">
+            <h3 className="section-title">Included Service</h3>
+
+            <Text className="plan-description">{service?.service}</Text>
+
+            <Text
+              type="secondary"
+              style={{ marginTop: "6px", display: "block" }}
+            >
+              {service?.description}
+            </Text>
+
+            <ul className="plan-benefits">
+              <li>✔ Category: {service?.category}</li>
+              <li>✔ Occurrence: {service?.occurance}</li>
+              <li>✔ Service Code: {service?.serviceCode}</li>
+            </ul>
+          </div>
+        )}
+
         <Card className="summary-card" variant="borderless">
           <Title level={5} className="summary-title">
             Order Summary
           </Title>
           <Divider />
-          {packageDetails?.currencyType === "USD" && (
+          {plan?.currencyType === "USD" && (
             <div className="price-card-section">
-              {packageDetails?.actualPriceINR && (
-                <span className="price-card1">
-                  <h4>USD</h4>
-                  <h3>
-                    $ {packageDetails?.actualPriceINR}/
-                    {packageDetails?.occurance || "yearly"}
-                  </h3>
-                </span>
-              )}
-              {packageDetails?.actualPriceINR && (
-                <span className="price-card2">
-                  <h4>INR</h4>
-                  <h3>
-                    ₹ {packageDetails?.actualPriceINR}/
-                    {packageDetails?.occurance || "yearly"}
-                  </h3>
-                </span>
-              )}
+              <span className="price-card1">
+                <h4>USD</h4>
+                <h3>
+                  $ {service?.pricing}/{plan?.occurance || "year"}
+                </h3>
+              </span>
+
+              <span className="price-card2">
+                <h4>INR</h4>
+                <h3>
+                  ₹ {service?.pricing}/{plan?.occurance || "year"}
+                </h3>
+              </span>
             </div>
           )}
-          {packageDetails?.currencyType === "INR" && (
+          {plan?.currencyType === "INR" && (
             <div className="price-card-section">
-              {packageDetails?.actualPriceINR && (
-                <span className="price-card2">
-                  <h4>INR</h4>
-                  <h3>
-                    ₹ {packageDetails?.actualPriceINR}/
-                    {packageDetails?.occurance || "year"}
-                  </h3>
-                </span>
-              )}
+              <span className="price-card2">
+                <h4>INR</h4>
+                <h3>
+                  ₹ {service?.pricing}/{plan?.occurance || "year"}
+                </h3>
+              </span>
             </div>
           )}
           <Card className="coupon-section">

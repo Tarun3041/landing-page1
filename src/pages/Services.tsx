@@ -504,6 +504,9 @@ interface Service {
   pricing: string | number;
   category?: string;
   serviceCode?: string; // For payment integration
+  currencyType?: "INR";
+  actualPriceINR?: 100;
+  occurance?: "Weekly";
 }
 
 export default function Services() {
@@ -533,6 +536,9 @@ export default function Services() {
       pricing: "3500",
       category: "Care Management",
       serviceCode: "COMPANION_VISIT",
+      currencyType: "INR",
+      // actualPriceINR: 100,
+      occurance: "Weekly",
     },
     {
       id: "ENVANV002",
@@ -543,6 +549,9 @@ export default function Services() {
       pricing: "1500",
       category: "Therapy",
       serviceCode: "PAIN_SCREENING",
+      currencyType: "INR",
+      // actualPriceINR: 100,
+      occurance: "Weekly",
     },
     {
       id: "ENVANV003",
@@ -553,6 +562,9 @@ export default function Services() {
       pricing: "1500",
       category: "Screening",
       serviceCode: "MEMORY_SCREENING",
+      currencyType: "INR",
+      // actualPriceINR: 100,
+      occurance: "Weekly",
     },
     {
       id: "ENVANV004",
@@ -562,6 +574,9 @@ export default function Services() {
       pricing: "600",
       category: "Teleconsultation",
       serviceCode: "GERIATRIC_TELECONSULT",
+      currencyType: "INR",
+      // actualPriceINR: 100,
+      occurance: "Weekly",
     },
     {
       id: "ENVANV005",
@@ -570,6 +585,9 @@ export default function Services() {
       pricing: "300",
       category: "Teleconsultation",
       serviceCode: "GP_TELECONSULT",
+      currencyType: "INR",
+      // actualPriceINR: 100,
+      occurance: "Weekly",
     },
     {
       id: "ENVANV006",
@@ -579,6 +597,9 @@ export default function Services() {
       pricing: "3500",
       category: "Home Visit",
       serviceCode: "DOCTOR_HOME_VISIT",
+      currencyType: "INR",
+      // actualPriceINR: 100,
+      occurance: "Weekly",
     },
     {
       id: "ENVANV007",
@@ -588,6 +609,9 @@ export default function Services() {
       pricing: "1500",
       category: "Home Visit",
       serviceCode: "PHYSIO_HOME_VISIT",
+      currencyType: "INR",
+      // actualPriceINR: 100,
+      occurance: "Weekly",
     },
     {
       id: "ENVANV008",
@@ -597,6 +621,9 @@ export default function Services() {
       pricing: "1800",
       category: "Nursing",
       serviceCode: "NURSE_ON_CALL",
+      currencyType: "INR",
+      // actualPriceINR: 100,
+      occurance: "Weekly",
     },
     {
       id: "ENVANV009",
@@ -605,6 +632,9 @@ export default function Services() {
       pricing: "1800",
       category: "Nursing",
       serviceCode: "WOUND_DRESSING",
+      currencyType: "INR",
+      // actualPriceINR: 100,
+      occurance: "Weekly",
     },
     {
       id: "ENVANV010",
@@ -614,6 +644,9 @@ export default function Services() {
       pricing: "1400",
       category: "Care Support",
       serviceCode: "CARETAKER_24H",
+      currencyType: "INR",
+      // actualPriceINR: 100,
+      occurance: "Weekly",
     },
     {
       id: "ENVANV011",
@@ -623,6 +656,9 @@ export default function Services() {
       pricing: "2400",
       category: "Nursing",
       serviceCode: "NURSING_12H",
+      currencyType: "INR",
+      // actualPriceINR: 100,
+      occurance: "Weekly",
     },
     {
       id: "ENVANV012",
@@ -632,6 +668,9 @@ export default function Services() {
       pricing: "3600",
       category: "Nursing",
       serviceCode: "NURSING_24H",
+      currencyType: "INR",
+      // actualPriceINR: 100,
+      occurance: "Weekly",
     },
     {
       id: "ENVANV013",
@@ -641,6 +680,9 @@ export default function Services() {
       pricing: "Contact for quote",
       category: "Equipment",
       serviceCode: "MEDICAL_EQUIPMENT",
+      currencyType: "INR",
+      // actualPriceINR: 100,
+      occurance: "Weekly",
     },
     {
       id: "ENVANV014",
@@ -650,6 +692,9 @@ export default function Services() {
       pricing: "2000",
       category: "Home Visit",
       serviceCode: "AUDIOLOGIST_HOME",
+      currencyType: "INR",
+      // actualPriceINR: 100,
+      occurance: "Weekly",
     },
     {
       id: "ENVANV015",
@@ -659,6 +704,9 @@ export default function Services() {
       pricing: "Free Benefit",
       category: "Digital",
       serviceCode: "DEMENTIA_APP",
+      currencyType: "INR",
+      // actualPriceINR: 100,
+      occurance: "Weekly",
     },
     {
       id: "ENVANV016",
@@ -669,6 +717,9 @@ export default function Services() {
       pricing: "INR 27000",
       category: "Technology",
       serviceCode: "SMART_WATCH",
+      currencyType: "INR",
+      // actualPriceINR: 100,
+      occurance: "Weekly",
     },
   ];
 
@@ -730,7 +781,6 @@ export default function Services() {
     return "Per service";
   };
 
-
   const categories = [
     "All",
     ...new Set(services.map((s) => s.category).filter(Boolean)),
@@ -785,8 +835,10 @@ export default function Services() {
   };
 
   // API function to handle booking
-  const handleBookService = async (service: Service, e: React.MouseEvent) => {
+  const handleBookService = async (service: any, e: React.MouseEvent) => {
     e.stopPropagation();
+    localStorage.removeItem("plan");
+    localStorage.setItem("service", JSON.stringify(service));
     if (isUserLoggedIn) {
       setShowRegistration(false);
       navigate("/payment");
@@ -1206,8 +1258,16 @@ export default function Services() {
                   <td className="pricing-cell">
                     <div className="pricing-content-table">
                       <div className="price-amount-table">
-                        {formatPricing(service.pricing)} 
-                        <span style={{fontSize:"12px",color:"#737373",paddingLeft:"10px"}}>({getPricingLabel(service.pricing)})</span>
+                        {formatPricing(service.pricing)}
+                        <span
+                          style={{
+                            fontSize: "12px",
+                            color: "#737373",
+                            paddingLeft: "10px",
+                          }}
+                        >
+                          ({getPricingLabel(service.pricing)})
+                        </span>
                       </div>
 
                       {service.pricing !== "Contact for quote" &&
