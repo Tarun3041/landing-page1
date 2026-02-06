@@ -452,6 +452,7 @@
 
 import React, { useState } from "react";
 import { Card, Button, Checkbox, Divider, Radio, Typography } from "antd";
+import "../Styles/paymenthandler.css";
 
 const { Text } = Typography;
 

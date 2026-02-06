@@ -216,7 +216,7 @@ logi
 =========================== */
 .phone-input-group {
   display: flex;
-  gap: 12px;
+  gap: 2px;
   width: 100%;
 }
 
@@ -226,8 +226,8 @@ logi
 }
 
 .country-dropdown {
-  width:50%;
-  padding: 5px;
+  width:40%;
+  padding: 2px;
   border: 2px solid #e1e5e9;
   border-radius: 12px;
   background: #fafbfc;
@@ -510,7 +510,7 @@ logi
   
   .form-input,
   .country-dropdown {
-    padding: 6px 18px;
+    padding: 6px 8px;
     font-size: 1rem;
   }
   
@@ -731,7 +731,7 @@ logi
 
 
 .country-dropdown {
-  padding: 10px 12px;
+  padding: 10px 6px;
   border: none;
   /* border-right: 1px solid #ddd; */
   /* background-color: #fff; */
@@ -744,7 +744,7 @@ logi
 }
 
 .country-dropdown option {
-  padding: 8px;
+  padding: 2px;
 }
 
 .phone-input {

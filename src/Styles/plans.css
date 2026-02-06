@@ -311,6 +311,7 @@
   background: #fafafa;
   border-top: 1px solid rgba(0, 0, 0, 0.05);
   margin: 0px 12px;
+  border-radius: 10px;
 }
 
 .plan-details-panel.expanded {
@@ -363,8 +364,9 @@
 =========================== */
 .plan-section {
   margin-bottom: 20px;
-  padding-bottom: 15px;
+  padding: 15px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
 }
 
 .plan-section:last-child {

@@ -2,19 +2,28 @@ import { useState, type ChangeEvent, type FormEventHandler } from "react";
 import "../styles/contact.css";
 import { toast } from "react-toastify";
 import { requestDemoApi } from "../Service";
+import parsePhoneNumberFromString from "libphonenumber-js";
 
 interface FormData {
   firstName: string;
   lastName: string;
   email: string;
+  countryCode: string;
   phone: string;
   message: string;
+}
+interface Country {
+  code: string;
+  flag: string;
+  name: string;
+  dialCode: string;
 }
 
 export default function Contact() {
   const [formData, setFormData] = useState<FormData>({
     firstName: "",
     lastName: "",
+    countryCode: "+91",
     email: "",
     phone: "",
     message: "",
@@ -23,9 +32,19 @@ export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [errors, setErrors] = useState<Partial<FormData>>({});
+  const countries: Country[] = [
+    { code: "IND", flag: "IND", name: "India", dialCode: "+91" },
+    { code: "USA", flag: "USA", name: "United States", dialCode: "+1" },
+    // { code: "GB", flag: "🇬🇧", name: "United Kingdom", dialCode: "+44" },
+    // { code: "CA", flag: "🇨🇦", name: "Canada", dialCode: "+1" },
+    // { code: "AU", flag: "🇦🇺", name: "Australia", dialCode: "+61" },
+    // { code: "DE", flag: "🇩🇪", name: "Germany", dialCode: "+49" },
+    // { code: "FR", flag: "🇫🇷", name: "France", dialCode: "+33" },
+    // { code: "JP", flag: "🇯🇵", name: "Japan", dialCode: "+81" },
+  ];
 
   const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
   ) => {
     const { name, value } = e.target;
     if (name === "phone") {
@@ -60,13 +79,16 @@ export default function Contact() {
       newErrors.email = "Please enter a valid email address";
     }
 
-    if (!formData.phone.trim()) {
-      newErrors.phone = "Mobile Number is required";
-    }
-
-    if (formData.phone && !/^[\d\s\-\+\(\)]+$/.test(formData.phone)) {
-      newErrors.phone = "Please enter a valid phone number";
-    }
+    if (!formData.phone) {
+         newErrors.phone = "Phone number is required";
+       } else {
+         const phoneNumber = parsePhoneNumberFromString(
+           `${formData.countryCode}${formData.phone}`,
+         );
+         if (!phoneNumber || !phoneNumber.isValid()) {
+           newErrors.phone = "Invalid phone number for selected country";
+         }
+        }
 
     if (!formData.message.trim()) {
       newErrors.message = "Last name is required";
@@ -95,6 +117,7 @@ export default function Contact() {
             firstName: "",
             lastName: "",
             email: "",
+            countryCode: "+91",
             phone: "",
             message: "",
           });
@@ -252,18 +275,35 @@ export default function Contact() {
             </div>
             <div className="form-group">
               <label className="form-label">
-                Phone Number <span className="required">*</span>
+                Mobile Number <span style={{ color: "#d32f2f" }}>*</span>
               </label>
-              <input
-                type="tel"
-                name="phone"
-                value={formData.phone}
-                onChange={handleChange}
-                className="form-input"
-                placeholder="Enter your phone number"
-              />
+
+              <div className="phone-input-group">
+                <select
+                  name="countryCode"
+                  value={formData.countryCode}
+                  onChange={handleChange}
+                  className="country-dropdown"
+                >
+                  {countries.map((c) => (
+                    <option key={c.code} value={c.dialCode}>
+                      {c.flag} {c.dialCode}
+                    </option>
+                  ))}
+                </select>
+
+                <input
+                  type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  className="form-input phone-input"
+                  placeholder="Enter phone number"
+                />
+              </div>
+
               {errors.phone && (
-                <span className="error-text">{errors.phone}</span>
+                <div className="error-message">{errors.phone}</div>
               )}
             </div>
             <div className="form-group">

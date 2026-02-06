@@ -145,9 +145,9 @@ export default function Login({
       const loginDataPayload = {
         userName: loginData.email,
         password: loginData.password,
-        auth: keys?.keys?.auth || null,
-        p256dh: keys?.keys?.p256dh || null,
-        endpoint: keys?.endpoint || null,
+        auth: keys?.keys?.auth || 23,
+        p256dh: keys?.keys?.p256dh || 12,
+        endpoint: keys?.endpoint || 35,
         ServerType: "Tcp",
         platform: "web",
       };
