@@ -197,14 +197,13 @@ const PackagePurchase: React.FC = () => {
               <span className="price-card1">
                 <h4>USD</h4>
                 <h3>
-                  $ {service?.pricing}/{plan?.occurance || "year"}
+                  $ {service?.price}/{plan?.occurance || "year"}
                 </h3>
               </span>
-
               <span className="price-card2">
                 <h4>INR</h4>
                 <h3>
-                  ₹ {service?.pricing}/{plan?.occurance || "year"}
+                  ₹ {service?.price}/{plan?.occurance || "year"}
                 </h3>
               </span>
             </div>
@@ -214,7 +213,7 @@ const PackagePurchase: React.FC = () => {
               <span className="price-card2">
                 <h4>INR</h4>
                 <h3>
-                  ₹ {service?.pricing}/{plan?.occurance || "year"}
+                  ₹ {service?.price}/{plan?.occurance || "year"}
                 </h3>
               </span>
             </div>
@@ -250,9 +249,9 @@ const PackagePurchase: React.FC = () => {
         paymentLinkDetails={paymentLinkDetails}
         paymentCharges={paymentCharges}
         packageDetails={{
-          currencyType: "INR",
-          actualPrice: 100,
-          actualPriceINR: 100,
+          currencyType: service ? service.currencyType : plan.currencyType,
+          actualPrice: service ? service.pricing : plan.price,
+          // actualPriceINR: service ? service.pricing : plan.price,
         }}
       />
     </div>
