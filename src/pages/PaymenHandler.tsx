@@ -494,7 +494,7 @@ export const PaymentHandler: React.FC<PaymentHandlerProps> = ({
     onOnlineOptionClick({
       Method: method,
       PaymentOption: method.option,
-      TotalPrice: packageDetails?.actualPriceINR,
+      TotalPrice: packageDetails?.actualPrice,
       CurrencyType: packageDetails?.currencyType,
     });
   };
@@ -543,7 +543,7 @@ export const PaymentHandler: React.FC<PaymentHandlerProps> = ({
         style={{ marginTop: 16 }}
       >
         Pay Now | ₹{" "}
-        {paymentCharges?.totalAmountINR || packageDetails?.actualPriceINR}
+        {packageDetails?.actualPrice}
       </Button>
     </Card>
   );
