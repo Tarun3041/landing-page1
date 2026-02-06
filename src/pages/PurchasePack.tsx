@@ -142,7 +142,9 @@ const PackagePurchase: React.FC = () => {
         className="order-summary"
         title={
           <h4 className="summary-title" style={{ marginTop: "50px" }}>
-            ANVAYYA GOLD
+            {service?.service
+              ? service.service
+              : `${plan?.title} - ${plan?.badge}`}
           </h4>
         }
       >
