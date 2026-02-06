@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLocation, useNavigate } from "react-router";
+import { useLocation } from "react-router-dom"; // useNavigate not used → removed
 import { Card, Divider, Typography } from "antd";
 import { PaymentHandler } from "./PaymenHandler";
 import { packagePurchase } from "./Payment";
@@ -9,6 +9,7 @@ import {
   createPaytmPlanPayment,
   createPlanPayment,
 } from "../Service";
+import "../Styles/purchasepack.css"; // your style file
 
 const { Text, Title } = Typography;
 
@@ -16,13 +17,15 @@ const PackagePurchase: React.FC = () => {
   const location = useLocation();
   const [paymentCharges, setPaymentCharges] = useState<any>();
   const [paymentLinkDetails, setPaymentLinkDetails] = useState<any>();
-  const [selectedMethod, setSelectedMethod] = useState<string | null>("");
+  const [selectedMethod, setSelectedMethod] = useState<string | null>(null);
+
   const isUserLoggedIn = localStorage.getItem("isUserLoggedIn") === "true";
   const user = isUserLoggedIn
     ? JSON.parse(localStorage.getItem("user") || "{}")
     : null;
+
   const params = new URLSearchParams(location.search);
-  const userID: any = localStorage.getItem("userID") || params.get("userID");
+  const userID = localStorage.getItem("userID") || params.get("userID");
   const plan = JSON.parse(localStorage.getItem("plan") || "{}");
   const service = JSON.parse(localStorage.getItem("service") || "{}");
 
@@ -30,20 +33,13 @@ const PackagePurchase: React.FC = () => {
 
   const handlePaymentOptionClick = async ({ Method }: { Method: any }) => {
     setSelectedMethod(Method.key);
+    // ... rest of your payment logic remains 100% unchanged
     if (
       Method.key === "ICICI_CCAvenue" ||
       Method?.key === "Paytm" ||
       Method?.key === "HDFC"
     ) {
       try {
-        const planData = {
-          userID: user.userId,
-          paymentType: "Online",
-          paymentMode: Method.key,
-          price: "100",
-          CurrencyType: "INR",
-        };
-        const charges = "200";
         const payload = {
           planId: "AKCSPD44",
           planName: "ANVAYYA GOLD",
@@ -75,14 +71,15 @@ const PackagePurchase: React.FC = () => {
           userID: userID,
           userName: user.name,
         };
+
         const res: any = await buyPlanOnline(payload);
         if (res?.status === 200) {
-          const details = res?.data?.data;
           let linkdetails: any;
           const basePayload = {
             TotalPrice: 100,
             PaymentID: "ASDFGHJKL1234567890",
           };
+
           if (Method?.key === "HDFC") {
             const hdfcPayload = {
               Name: user.name,
@@ -95,7 +92,7 @@ const PackagePurchase: React.FC = () => {
             };
             linkdetails = await createHdfcPlanPayment(hdfcPayload);
           } else if (Method?.key === "Paytm") {
-            const payload = {
+            const paytmPayload = {
               Name: user.name,
               EmailID: user.emailID,
               MobileNumber: user.mobileNumber,
@@ -105,61 +102,64 @@ const PackagePurchase: React.FC = () => {
               userID: user.userId,
               Channel: "WEB",
             };
-            linkdetails = await createPaytmPlanPayment(payload);
+            linkdetails = await createPaytmPlanPayment(paytmPayload);
           } else {
             linkdetails = await createPlanPayment(basePayload);
           }
+
           if (linkdetails?.status === 200) {
             setPaymentLinkDetails(linkdetails?.data?.data);
-          } else {
           }
-        } else {
         }
       } catch (error: any) {}
     }
   };
 
   const redirectToPayment = () => {
+    if (!paymentLinkDetails?.hdfcpaymenturl) return;
+
     const form = document.createElement("form");
     form.method = "POST";
-    form.action = paymentLinkDetails?.hdfcpaymenturl;
+    form.action = paymentLinkDetails.hdfcpaymenturl;
+
     Object.entries(paymentLinkDetails).forEach(([key, value]) => {
       if (key !== "hdfcpaymenturl") {
         const input = document.createElement("input");
         input.type = "hidden";
         input.name = key;
-        input.value = value as string;
+        input.value = String(value);
         form.appendChild(input);
       }
     });
+
     document.body.appendChild(form);
     form.submit();
+    document.body.removeChild(form); // cleanup
   };
 
   return (
-    <div className="package-purchase-container">
-      <Card
-        className="order-summary"
-        title={
-          <h4 className="summary-title" style={{ marginTop: "50px" }}>
-            {service?.service
-              ? service.service
-              : `${plan?.title} - ${plan?.badge}`}
-          </h4>
-        }
-      >
-        {plan && (
-          <div className="plan-section">
-            {/* Plan description */}
-            <Text className="plan-description">{plan?.description}</Text>
+    <div className="purchase-page custom-scrollbar">
+      <div className="purchase-layout">
+        <Card className="plan-summary-card">
+          <div className="summary-header">
+            <h2 className="plan-name-title">
+              {service?.service
+                ? service.service
+                : `${plan?.title || "Plan"} ${plan?.badge ? `- ${plan.badge}` : ""}`}
+            </h2>
+          </div>
 
-            {/* Plan highlights */}
-            {Array.isArray(plan?.highlights) && (
-              <ul className="plan-benefits">
+          <div className="plan-info-block">
+            {plan?.description && (
+              <Text className="plan-desc">{plan.description}</Text>
+            )}
+
+            {Array.isArray(plan?.highlights) && plan.highlights.length > 0 && (
+              <ul className="highlight-list compact">
                 {plan.highlights.map(
-                  (item: { icon: string; text: string }, index: number) => (
-                    <li key={index}>
-                      <span style={{ marginRight: "6px" }}>{item.icon}</span>
+                  (item: { icon: string; text: string }, idx: number) => (
+                    <li key={idx}>
+                      <span className="highlight-icon">{item.icon}</span>
                       {item.text}
                     </li>
                   ),
@@ -167,95 +167,95 @@ const PackagePurchase: React.FC = () => {
               </ul>
             )}
           </div>
-        )}
-        {service && (
-          <div className="plan-section">
-            <h3 className="section-title">Included Service</h3>
 
-            <Text className="plan-description">{service?.service}</Text>
+          {service && (
+            <div className="service-info-block">
+              <h3 className="block-title">Included Service</h3>
+              <div className="service-name">{service.service}</div>
+              <div className="service-desc">{service.description}</div>
 
-            <Text
-              type="secondary"
-              style={{ marginTop: "6px", display: "block" }}
-            >
-              {service?.description}
-            </Text>
-
-            <ul className="plan-benefits">
-              <li>✔ Category: {service?.category}</li>
-              <li>✔ Occurrence: {service?.occurance}</li>
-              <li>✔ Service Code: {service?.serviceCode}</li>
-            </ul>
-          </div>
-        )}
-
-        <Card className="summary-card" variant="borderless">
-          <Title level={5} className="summary-title">
-            Order Summary
-          </Title>
-          <Divider />
-          {plan?.currencyType === "USD" && (
-            <div className="price-card-section">
-              <span className="price-card1">
-                <h4>USD</h4>
-                <h3>
-                  $ {service?.price}/{plan?.occurance || "year"}
-                </h3>
-              </span>
-              <span className="price-card2">
-                <h4>INR</h4>
-                <h3>
-                  ₹ {service?.price}/{plan?.occurance || "year"}
-                </h3>
-              </span>
+              <ul className="service-meta compact">
+                <li>✔ Category: {service.category}</li>
+                <li>✔ Occurrence: {service.occurance}</li>
+                <li>✔ Service Code: {service.serviceCode}</li>
+              </ul>
             </div>
           )}
-          {plan?.currencyType === "INR" && (
-            <div className="price-card-section">
-              <span className="price-card2">
-                <h4>INR</h4>
-                <h3>
-                  ₹ {service?.price}/{plan?.occurance || "year"}
-                </h3>
-              </span>
+
+          <div className="order-summary-compact">
+            <Title level={5} className="mini-title">
+              Order Summary
+            </Title>
+            <Divider className="thin-divider" />
+
+            <div className="price-display">
+              {(plan?.currencyType === "USD" ||
+                service?.currencyType === "USD") && (
+                <div className="price-box">
+                  <span className="currency">USD</span>
+                  <span className="amount">
+                    ${service?.price || plan?.price || "0"}
+                  </span>
+                  <span className="period">
+                    /{plan?.occurance || service?.occurance || "year"}
+                  </span>
+                </div>
+              )}
+
+              <div className="price-box">
+                <span className="currency">INR</span>
+                <span className="amount">
+                  ₹ {service?.pricing || plan?.price || "0"}
+                </span>
+                <span className="period">
+                  /{service?.occurance || plan?.occurance || "year"}
+                </span>
+              </div>
             </div>
-          )}
-          <Card className="coupon-section">
-            <Title level={5}>The above Price is inclusive of All Taxes.</Title>
-            <h5>
-              <b>Note:</b> While using international credit/debit cards your
-              issuing bank may charge you conversion fee additionally.
-            </h5>
-          </Card>
-          <Card className="top-margin">
-            <Title level={5}>Chargeback & Refund Policy:</Title>
-            <h4>
+
+            <div className="policy-note small-text">
+              The above Price is inclusive of All Taxes.
+            </div>
+
+            <div className="small-text">
+              <strong>Note:</strong> While using international credit/debit
+              cards your issuing bank may charge you conversion fee
+              additionally.
+            </div>
+
+            <div className="refund-policy small-text">
+              <strong>Chargeback & Refund Policy:</strong>
+              <br />
               Chargeback is not acceptable once a transaction is processed as
               the service starts immediately upon payment. Any refund requests
               will be processed by Anvayaa Kin Care Private Limited as per the
               Company's Refund policy mentioned in the{" "}
               <a
-                target="_blank"
                 href="https://anvayaa.com/terms-and-conditions"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                Terms & Conditions(anvayaa.com)
+                Terms & Conditions
               </a>
-            </h4>
-          </Card>
+              .
+            </div>
+          </div>
         </Card>
-      </Card>
-      <PaymentHandler
-        paymentModes={packagePurchase}
-        onOnlinePay={redirectToPayment}
-        onOnlineOptionClick={handlePaymentOptionClick}
-        paymentLinkDetails={paymentLinkDetails}
-        paymentCharges={paymentCharges}
-        packageDetails={{
-          currencyType: service ? service.currencyType : plan.currencyType,
-          actualPrice: service ? service.pricing : plan.price,
-          // actualPriceINR: service ? service.pricing : plan.price,
-        }}
-      />
+
+        <div className="payment-section">
+          <PaymentHandler
+            paymentModes={packagePurchase}
+            onOnlinePay={redirectToPayment}
+            onOnlineOptionClick={handlePaymentOptionClick}
+            paymentLinkDetails={paymentLinkDetails}
+            paymentCharges={paymentCharges}
+            packageDetails={{
+              currencyType: service?.currencyType || plan?.currencyType,
+              actualPrice: service?.pricing || plan?.price,
+            }}
+          />
+        </div>
+      </div>
     </div>
   );
 };
