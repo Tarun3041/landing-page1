@@ -49,7 +49,7 @@ export default function Navbar() {
     : tabs;
 
   const logoutHandler = () => {
-    const logoutData = { email: user.email };
+    const logoutData = { email: user.emailID };
 
     logoutUserApi(logoutData).then((response: any) => {
       if (response.status === 200) {
@@ -91,7 +91,7 @@ export default function Navbar() {
 
             {showPopover && (
               <div className="user-popover">
-                     <p className="user-name">
+                <p className="user-name">
                   <span className="icon">
                     <svg
                       width="16"
