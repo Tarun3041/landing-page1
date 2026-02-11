@@ -506,7 +506,7 @@ interface Service {
   serviceCode?: string; // For payment integration
   currencyType?: "INR";
   actualPriceINR?: 100;
-  occurance?: "per-service" | "Weekly" | "Monthly" | "Yearly";
+  occurance?: "per-service" | "Weekly" | "Monthly" | "yearly";
 }
 
 export default function Services() {
@@ -714,12 +714,12 @@ export default function Services() {
         "Emergency Smart Watch + Remote Monitoring + 1 Year SOS services",
       description:
         "ASERS - Smart Watch with SOS Button & Fall Detection Sensors: SOS button available & connected to 24X7 call centre, 24X7 on call - Ambulance booking assistance, 24X7 Health Vital Monitoring by call centre for any anomalies, In app health vitals data sent to the family members, Fall Detection + Immediate Assistance - call connects to call centre, GSM sim card with one year calling and internet data included, GPS tracker to know incident location of SOS to dispatch help, Dedicated on ground support in-person support of Anvayaa's care manager from Home to Hospitalization including Billing, Insurance coordination, admissions/consents forms and other administrative paperwork.",
-      pricing: "INR 27000",
+      pricing: "27000",
       category: "Technology",
       serviceCode: "SMART_WATCH",
       currencyType: "INR",
       // actualPriceINR: 100,
-      occurance: "Yearly",
+      occurance: "yearly",
     },
   ];
 
@@ -1034,7 +1034,7 @@ export default function Services() {
     <div className="services-container">
       <div className="services-header">
         <h1 className="services-title">Individual Services</h1>
-        <div className="view-toggle-container">
+        {/* <div className="view-toggle-container">
           <div className="view-toggle">
             <button
               className={`view-btn ${viewMode === "cards" ? "active" : ""}`}
@@ -1081,7 +1081,7 @@ export default function Services() {
               </svg>
             </button>
           </div>
-        </div>
+        </div> */}
       </div>
 
       {/* Filter Buttons */}
@@ -1127,16 +1127,7 @@ export default function Services() {
                   <span className="price-amount">
                     {formatPricing(service.pricing)}
                   </span>
-                  {typeof service.pricing === "string" &&
-                  service.pricing.toLowerCase().includes("inr") ? (
-                    <span className="price-note">One-time payment</span>
-                  ) : service.pricing === "Free Benefit" ? (
-                    <span className="price-note">Complimentary</span>
-                  ) : service.pricing === "Contact for quote" ? (
-                    <span className="price-note">Custom pricing</span>
-                  ) : (
-                    <span className="price-note">Per service</span>
-                  )}
+                  <span className="price-note">/{service.occurance}</span>
                 </div>
               </div>
 

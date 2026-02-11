@@ -3,7 +3,7 @@
 =========================== */
 .register-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #fdf2ff 0%, #fff5f0 100%);
+  background: #fff;
   display: flex;
   align-items: center;
   justify-content: center;

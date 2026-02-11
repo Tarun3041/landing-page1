@@ -501,7 +501,19 @@ export const PaymentHandler: React.FC<PaymentHandlerProps> = ({
   };
 
   return (
-    <Card title="Select Payment Method" style={{color:""}}>
+    <Card
+      title="Select Payment Method"
+      styles={{
+        header: {
+          color: "#9a3f7b",
+          fontWeight: 600,
+          borderBottom: "1px solid #9a3f7b20",
+        },
+      }}
+      style={{
+        border: "1px solid #9a3f7b20",
+      }}
+    >
       <h4>Online Payment</h4>
 
       <div className="payment-options">
@@ -536,15 +548,14 @@ export const PaymentHandler: React.FC<PaymentHandlerProps> = ({
       </Checkbox>
 
       <Button
-        type="primary"
         size="large"
         block
         disabled={!paymentMode || !termsCondition}
         onClick={onOnlinePay}
+        className="custom-pay-btn"
         style={{ marginTop: 16 }}
       >
-        Pay Now | {" "}
-        {packageDetails?.actualPrice}
+        Pay Now | {packageDetails?.actualPrice}
       </Button>
     </Card>
   );

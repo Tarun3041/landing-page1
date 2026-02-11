@@ -3,7 +3,7 @@
 =========================== */
 .contact-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #f8f4ff 0%, #fff5f0 100%);
+  background: #fff;
   padding: 40px 20px;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   display: flex;
@@ -16,10 +16,12 @@
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1.2fr;
-  gap: 10px;
+  /* gap: 10px; */
   background: white;
   border-radius: 24px;
   overflow: auto;
+    border: 2px solid #776c61;
+  /* padding: 5px px; */
   /* box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08); */
 }
 
@@ -27,8 +29,8 @@
    LEFT SIDE - INFO SECTION
 =========================== */
 .contact-info {
-  background: linear-gradient(135deg, #FF8C00 0%, #9F4579 100%);
-  color: white;
+  background: #fa8e1ecc;
+  color: #ffffff;
   padding: 10px 20px;
   display: flex;
   flex-direction: column;
@@ -132,6 +134,7 @@
 .contact-form-section {
   padding: 10px 10px;
   background: white;
+
 }
 .form-header h2 {
   font-size: 1.8rem;
@@ -342,7 +345,7 @@
   }
   
   .contact-info {
-    padding: 5px 1px;
+    padding: 5px 15px;
   }
   
   .contact-form-section {

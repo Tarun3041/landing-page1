@@ -42,12 +42,13 @@ const PackagePurchase: React.FC = () => {
   const selectedPriceINR =
     billingPeriod === "yearly" ? yearlyPriceINR : monthlyPriceINR;
   const selectedPeriodText = isService
-    ? billingPeriod === "yearly"
-      ? "12 per-year"
+    ? service?.occurance == "yearly"
+      ? "yearly"
       : "per-service"
     : billingPeriod === "yearly"
       ? "yearly"
       : "monthly";
+
 
   const handleOfflinePayment = async () => {
     // Your offline logic here (unchanged)
@@ -248,30 +249,7 @@ const PackagePurchase: React.FC = () => {
           {!service?.service && plan && (
             <div className="service-info-block">
               <h3 className="block-title">Plan Details</h3>
-              <div className="chips-container">
-                {plan.category && (
-                  <Tag className="service-chip" color={chipColors.category}>
-                    <span className="chip-label">Category:</span>
-                    <span className="chip-value">{plan.category}</span>
-                  </Tag>
-                )}
-                {plan.occurance && (
-                  <Tag className="service-chip" color={chipColors.occurrence}>
-                    <span className="chip-label">Occurrence:</span>
-                    <span className="chip-value">{plan.occurance}</span>
-                  </Tag>
-                )}
-                {plan.planCode && (
-                  <Tag className="service-chip" color={chipColors.serviceCode}>
-                    <span className="chip-label">Plan Code:</span>
-                    <span className="chip-value">{plan.planCode}</span>
-                  </Tag>
-                )}
-                <Tag className="service-chip" color={chipColors.plan}>
-                  <span className="chip-label">Type:</span>
-                  <span className="chip-value">Plan</span>
-                </Tag>
-              </div>
+              {/* s */}
             </div>
           )}
 
@@ -280,7 +258,7 @@ const PackagePurchase: React.FC = () => {
               Order Summary
             </Title>
 
-            {/* Billing period selector */}
+            {!service.service && plan?.occurance && (
             <div className="billing-period-selector">
               <Radio.Group
                 value={billingPeriod}
@@ -291,7 +269,7 @@ const PackagePurchase: React.FC = () => {
                 <Radio.Button value="monthly">Monthly</Radio.Button>
                 <Radio.Button value="yearly">Yearly</Radio.Button>
               </Radio.Group>
-            </div>
+            </div>)}
 
             <div className="price-display">
               {(plan?.currencyType === "USD" ||
@@ -301,9 +279,9 @@ const PackagePurchase: React.FC = () => {
                   <span className="amount">
                     ${plan?.price || plan?.price || "0"}
                   </span>
-                  <span className="period">
+                  {/* <span className="period">
                     /{plan?.occurance || service?.occurance || "year"}
-                  </span>
+                  </span> */}
                 </div>
               )}
 

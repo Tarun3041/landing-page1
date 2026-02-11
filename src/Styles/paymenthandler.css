@@ -193,9 +193,35 @@ h4 {
 }
 
 :where(.css-dev-only-do-not-override-tchc97).ant-card .ant-card-body{
-    padding:"10px"
+    padding:"4px"
 }
 :where(.css-dev-only-do-not-override-tchc97).ant-card .ant-card-head {
   padding: 10px !important;
-  background: linear-gradient(90deg, #fa8e1e 0%, #fa8e1e 100%) !important;
+  background: #cc6dac !important;
+  height: 20px;
 }
+.custom-pay-btn {
+  background-color: #9a3f7b !important;
+  border-color: #9a3f7b !important;
+  color: #ffffff !important;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+/* Hover */
+.custom-pay-btn:hover:not(:disabled) {
+  background-color: #842e67 !important;
+  border-color: #842e67 !important;
+}
+
+/* Disabled state with blur */
+.custom-pay-btn:disabled,
+.custom-pay-btn[disabled] {
+  background-color: #9a3f7b !important;
+  border-color: #9a3f7b !important;
+  color: #ffffff !important;
+  opacity: 0.6;
+  filter: blur(1px);
+  cursor: not-allowed;
+}
+

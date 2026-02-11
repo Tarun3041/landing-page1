@@ -158,7 +158,7 @@ export default function Contact() {
     <div className="contact-page">
       <div
         className="contact-container "
-        style={{ height: "calc(100vh - 143px)", }}
+        style={{ height: "calc(100vh - 143px)" }}
       >
         {/* Left Side - Information */}
         <div className="contact-info">
@@ -202,15 +202,15 @@ export default function Contact() {
           <div className="contact-details">
             <div className="detail-item">
               <div className="detail-icon">📧</div>
-              <span>support@eldercare.com</span>
+              <span>info@anvayaa.com</span>
             </div>
             <div className="detail-item">
               <div className="detail-icon">📱</div>
-              <span>+1 (800) 123-4567</span>
+              <span>+91 72888 18181 / +91 93926 82922</span>
             </div>
             <div className="detail-item">
               <div className="detail-icon">⏰</div>
-              <span>Mon-Fri, 9AM-6PM EST</span>
+              <span>Mon-sun</span>
             </div>
           </div>
         </div>
