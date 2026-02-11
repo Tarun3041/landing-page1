@@ -292,7 +292,7 @@ export default function Register({
     <>
       <Loader
         show={isSubmitting}
-        type="dots"
+        type="pulse"
         timeout={5000} // Auto-close after 5 seconds
         // onClose={() => setLoading(false)}
       />

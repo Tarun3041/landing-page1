@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy } from "react";
 import "../styles/plans.css";
 import AuthFlow from "./Authflow";
 import { useNavigate } from "react-router-dom";
@@ -15,7 +15,7 @@ const plansData = [
     occurance: "Monthly",
     description:
       "Ideal for mostly independent seniors who want safety, preventive health support, and meaningful engagement without daily assistance.",
-    price: "₹3,200",
+    price: "3200",
     billing: "(Billed annually · Covers family of 2 elders)",
     highlights: [
       { icon: "🔒", text: "24×7 SOS Helpline – Unlimited emergency calls" },
@@ -47,21 +47,36 @@ const plansData = [
       {
         title: "Emergency & Safety",
         rows: [
-          { label: "24×7 SOS Helpline", value: "Unlimited", featured: true },
-          { label: "Ambulance Coordination", value: "Pay & Use" },
-          { label: "Hospital Ground Support", value: "40+ cities" },
+          {
+            label:
+              "24/7 dedicated helpline, Includes real-time support for emergency situations, coordination from home to hospitalization & in-app updates.",
+            value: "Unlimited",
+            featured: true,
+          },
+          {
+            label:
+              "Ambulance Coordination : Arrange for  home to hospital transport in case of emergency.",
+            value: "Pay & Use",
+          },
+          {
+            label:
+              "On-ground care manager support for hospitalisation, admission, paper works etc in case of emergency-Accessible across 40 Cities Pan India - See excel attached",
+            value: "40+ cities",
+          },
         ],
       },
       {
         title: "Medical Consultations",
         rows: [
           {
-            label: "GP Teleconsult (Audio/Video)",
+            label:
+              "24*7 Multilingual teleconsultations with a general physician for employees & family, available in both audio and video modes.",
             value: "12 / year",
             featured: true,
           },
           {
-            label: "Geriatric / Specialist Consult",
+            label:
+              "Multilingual teleconsultations with a geriatric medicine specialist for employees' parents, available in both audio and video modes.",
             value: "4 / year",
             featured: true,
           },
@@ -75,12 +90,50 @@ const plansData = [
             value: "1 / year",
             featured: true,
           },
-          { label: "Cognitive Health Screening", value: "1 / year" },
+          {
+            label:
+              "Professional screening to evaluate memory, cognitive function, and mental agility, aiding in early detection of cognitive decline or dementia.",
+            value: "1 / year",
+          },
           { label: "Pain & Joint Screening", value: "1 / year" },
         ],
       },
       {
+        title: "Information Centre",
+        rows: [
+          {
+            label:
+              "Call for any help, booking uber, groceries, make bill payments, book dr appointments, book lab test etc",
+            value: "unlimited",
+            featured: true,
+          },
+        ],
+      },
+      {
         title: "Wellness & Engagement",
+        rows: [
+          {
+            label:
+              "To keep the elderly engaged and Sessions focused on -  Diet, Nutrition, Cognitive health, Fall Prevention, estate planning, Vastu, Yoga & more ",
+            value: "30 / month",
+            featured: true,
+          },
+          {
+            label:
+              "Access to exclusive elderly care preventive health reading material ",
+            value: "unlimited  for all 12 months",
+          },
+          {
+            label:
+              " In-city and outstation group travel with link minded people with pre-booked medical support.",
+            value: "Pay And Use",
+          },
+          {
+            label: " Access to cognitive engagement activities via app ",
+            value: "unlimited",
+          },
+        ],
+
         features: [
           "30 online engagement sessions per month",
           "Unlimited Health Bytes & educational content",
@@ -89,20 +142,50 @@ const plansData = [
         ],
       },
       {
-        title: "Concierge Services",
-        features: [
-          "Unlimited requests – doctor booking, lab tests, medicine delivery",
-          "Assistance with bills, groceries, Uber/cab booking",
-          "Medicine reminder & compliance tracking",
+        title: "Senior Smart Watch",
+        rows: [
+          {
+            label:
+              "Remote health vital monitoring 24X7 SOS button in-built in watch fall detection sensors 24X7 Access to anvayaa SOS helpline",
+            value: "1 watch included",
+          },
         ],
+        // features: [
+        //   "Unlimited requests – doctor booking, lab tests, medicine delivery",
+        //   "Assistance with bills, groceries, Uber/cab booking",
+        //   "Medicine reminder & compliance tracking",
+        // ],
       },
       {
-        title: "Smart Watch & App",
-        features: [
-          "24×7 SOS button & emergency alerts",
-          "Basic fall detection & location sharing",
-          "Vitals tracking (heart rate, steps)",
-          "Family dashboard for real-time updates",
+        title: "Anvaya App Access",
+        rows: [
+          {
+            label:
+              "App with SOS button Medien reminder  EMR - medical records documentions Servcie Request updates and Tracking Digital wallet for payments ",
+            value: "Unlimited",
+          },
+        ],
+
+        // features: [
+        //   "24×7 SOS button & emergency alerts",
+        //   "Basic fall detection & location sharing",
+        //   "Vitals tracking (heart rate, steps)",
+        //   "Family dashboard for real-time updates",
+        // ],
+      },
+      {
+        title: "Companion Care services",
+        rows: [
+          {
+            label:
+              "A dedicated companion care manager from Anvayaa will accompany elderly for health checks/follow up doctor visits to hospital/clinics/lab or any other healthcare facility as needed by the elderly",
+            value: "6 per-year",
+          },
+          {
+            label:
+              "A dedicated companion care manager from Anvayaa will accompany elderly for banks/malls/worship places/shopping/family events/tech & smartphone usage assistance/paperwork & logistics etc.",
+            value: "6 per-year",
+          },
         ],
       },
     ],
@@ -114,29 +197,24 @@ const plansData = [
     currencyType: "INR",
     occurance: "Monthly",
     description:
-      "Designed for seniors with increasing dependency — includes more frequent medical support, companion visits, and discounts on intensive home care.",
-    price: "₹7,200",
+      "Designed for seniors with limited mobility or increasing dependency — includes more frequent medical support, companion visits, wellness check-ins, and discounts on intensive home care.",
+    price: "7200",
     billing: "(Billed annually · Covers family of 2 elders)",
     highlights: [
-      {
-        icon: "⚡",
-        text: "Unlimited Doctor Consultations (GP + Specialist + Nutritionist)",
-      },
-      {
-        icon: "🤝",
-        text: "24 Companion Visits per year (hospital + social/errands)",
-      },
+      { icon: "⚡", text: "Unlimited GP Teleconsultations" },
+      { icon: "👨‍⚕️", text: "6 Geriatric Specialist Consults per year" },
+      { icon: "🤝", text: "18 Companion Visits per year (hospital + errands)" },
       {
         icon: "🏠",
-        text: "15% Discount on all Home Health Services (nurse, physio, etc.)",
+        text: "15% Discount on all Home Health Services (nurse, physio, attendant)",
       },
       {
-        icon: "🩺",
-        text: "Fortnightly Wellness Check-in Calls by Care Manager",
+        icon: "📞",
+        text: "Fortnightly Wellness Check-in Calls by Wellness Manager",
       },
       {
         icon: "⌚",
-        text: "Advanced Smart Watch – continuous monitoring + fall detection",
+        text: "Senior Smart Watch with SOS & fall detection",
       },
     ],
     detailedSections: [
@@ -144,81 +222,171 @@ const plansData = [
         title: "Who is this for?",
         type: "list",
         items: [
-          { icon: "🧑‍🦯", text: "Seniors with limited mobility or home-bound" },
-          { icon: "🏥", text: "Rising or chronic health conditions" },
           {
-            icon: "🤝",
-            text: "Requires regular help outside home (hospital visits, errands)",
+            icon: "🧑‍🦯",
+            text: "Seniors with limited mobility and largely home-bound",
+          },
+          { icon: "📈", text: "Health concerns exist and are on the rise" },
+          {
+            icon: "🏠",
+            text: "Mostly independent in personal grooming, toileting, dressing, feeding",
           },
           {
-            icon: "🩺",
-            text: "Needs proactive monitoring & frequent medical input",
+            icon: "🛒",
+            text: "Requires assistance for activities outside home (errands, hospital visits)",
           },
         ],
       },
       {
-        title: "Medical & Specialist Support",
-        rows: [
-          { label: "GP Teleconsultations", value: "Unlimited", featured: true },
-          {
-            label: "Geriatric Specialist Consults",
-            value: "6 / year",
-            featured: true,
-          },
-          { label: "Nutritionist / Diet Consults", value: "2–4 / year" },
-        ],
-      },
-      {
-        title: "Preventive & Diagnostics",
+        title: "Emergency & Safety",
         rows: [
           {
-            label: "Vitals Monitoring at Home (BP, Sugar, ECG, etc.)",
-            value: "6 / year",
-          },
-          { label: "Annual Health Check (50+ parameters)", value: "1 / year" },
-          { label: "Pain Screening (multiple joints)", value: "2 / year" },
-          { label: "Cognitive & Audiology Screening", value: "1 / year each" },
-        ],
-      },
-      {
-        title: "Companion & Personal Assistance",
-        rows: [
-          {
-            label: "Hospital / Doctor Visit Accompaniment",
-            value: "6 / year",
+            label:
+              "24/7 dedicated helpline, Includes real-time support for emergency situations, coordination from home to hospitalization & in-app updates.",
+            value: "Unlimited",
             featured: true,
           },
           {
-            label: "Errands & Social Outing Support",
+            label:
+              "Ambulance Coordination : Arrange for home to hospital transport in case of emergency.",
+            value: "Pay & Use",
+          },
+          {
+            label:
+              "On-ground care manager support for hospitalisation, admission, paperwork etc in case of emergency - Accessible across 40 Cities Pan India",
+            value: "40+ cities",
+          },
+        ],
+      },
+      {
+        title: "Medical Consultations",
+        rows: [
+          {
+            label:
+              "24*7 Multilingual teleconsultations with a general physician, available in both audio and video modes.",
+            value: "Unlimited",
+            featured: true,
+          },
+          {
+            label:
+              "Multilingual teleconsultations with a geriatric medicine specialist, available in both audio and video modes.",
+            value: "6 / year",
+            featured: true,
+          },
+          {
+            label:
+              "Diet consultation for condition management & healthy ageing",
+            value: "2 / year",
+          },
+        ],
+      },
+      {
+        title: "Preventive Health & Monitoring",
+        rows: [
+          {
+            label: "Annual Health Check (50+ parameters)",
+            value: "1 / year",
+            featured: true,
+          },
+          {
+            label:
+              "Knee, Back, Shoulder, Joint pains - online assessment with physiotherapist",
+            value: "2 / year",
+          },
+          {
+            label:
+              "Professional screening to evaluate memory, cognitive function, and mental agility, aiding in early detection of cognitive decline or dementia.",
+            value: "1 / year",
+          },
+          {
+            label:
+              "Vitals monitoring (Random blood sugar, BP, blood oxygen, ECG, Heart Rate, temperature) - measured and shared via app",
+            value: "6 / year",
+            featured: true,
+          },
+          {
+            label:
+              "Audiologist technician - home visit for hearing concerns & includes Speech Reception Threshold (SRT)",
+            value: "1 / year",
+          },
+        ],
+      },
+      {
+        title: "Wellbeing & Engagement",
+        rows: [
+          {
+            label:
+              "Fortnightly proactive wellbeing calls by our Wellness Manager, focusing on physical, emotional & social wellbeing of elderly",
+            value: "24 / year",
+            featured: true,
+          },
+          {
+            label:
+              "To keep the elderly engaged with sessions focused on Diet, Nutrition, Cognitive health, Fall Prevention, estate planning, Vastu, Yoga & more",
+            value: "30 / month",
+            featured: true,
+          },
+        ],
+      },
+      {
+        title: "Companion Care Services",
+        rows: [
+          {
+            label:
+              "A dedicated companion care manager will accompany elderly for health checks/follow-up doctor visits to hospital/clinics/lab or any other healthcare facility",
+            value: "6 / year",
+            featured: true,
+          },
+          {
+            label:
+              "A dedicated companion care manager will accompany elderly for banks/malls/worship places/shopping/family events/tech assistance/paperwork & logistics etc.",
             value: "12 / year",
             featured: true,
           },
-          { label: "Total Companion Visits", value: "18–24 / year" },
         ],
       },
       {
-        title: "Home Health Advantage",
-        features: [
-          "15% discount on nurse visits, physiotherapy, attendant care",
-          "Priority booking for home doctor visits",
-          "Discounted lab sample collection at home",
+        title: "Home Health Care (Discounted)",
+        rows: [
+          {
+            label:
+              "Wound care, injections, IV administration, vitals monitoring, Catheter Care, Suction Care, Ryles Tube etc.",
+            value: "Pay & Use (15% discount)",
+          },
+          {
+            label: "To support with rehab motor functions of the elderly",
+            value: "Pay & Use (15% discount)",
+          },
+          {
+            label:
+              "Assistance with activities of daily living such as bathing, grooming, diaper change, feeding, walking, and physical exercises",
+            value: "Pay & Use (15% discount)",
+          },
+          {
+            label:
+              "Home visits for regular health check-up or to track recovery",
+            value: "Pay & Use (15% discount)",
+          },
         ],
       },
       {
-        title: "Wellbeing Monitoring",
-        features: [
-          "Fortnightly personalized wellness calls (24 calls/year)",
-          "Dedicated Wellness Manager for coordination",
-          "Proactive health trend reporting to family",
+        title: "Senior Smart Watch",
+        rows: [
+          {
+            label:
+              "Remote health vital monitoring 24×7, SOS button in-built, fall detection sensors, 24×7 Access to Anvayaa SOS helpline",
+            value: "1 watch included",
+          },
         ],
       },
       {
-        title: "Smart Watch & Digital Platform",
-        features: [
-          "Continuous vitals + advanced fall detection",
-          "Real-time family alerts & dashboard",
-          "Medicine & appointment reminders",
-          "Secure medical records storage",
+        title: "Anvaya App Access",
+        rows: [
+          {
+            label:
+              "App with SOS button, Medicine reminder, EMR - medical records documentation, Service Request updates and Tracking, Digital wallet for payments",
+            value: "Unlimited",
+          },
         ],
       },
     ],

@@ -506,7 +506,7 @@ interface Service {
   serviceCode?: string; // For payment integration
   currencyType?: "INR";
   actualPriceINR?: 100;
-  occurance?: "Weekly";
+  occurance?: "per-service" | "Weekly" | "Monthly" | "Yearly";
 }
 
 export default function Services() {
@@ -538,7 +538,7 @@ export default function Services() {
       serviceCode: "COMPANION_VISIT",
       currencyType: "INR",
       // actualPriceINR: 100,
-      occurance: "Weekly",
+      occurance: "per-service",
     },
     {
       id: "ENVANV002",
@@ -551,7 +551,7 @@ export default function Services() {
       serviceCode: "PAIN_SCREENING",
       currencyType: "INR",
       // actualPriceINR: 100,
-      occurance: "Weekly",
+      occurance: "per-service",
     },
     {
       id: "ENVANV003",
@@ -564,7 +564,7 @@ export default function Services() {
       serviceCode: "MEMORY_SCREENING",
       currencyType: "INR",
       // actualPriceINR: 100,
-      occurance: "Weekly",
+      occurance: "per-service",
     },
     {
       id: "ENVANV004",
@@ -576,7 +576,7 @@ export default function Services() {
       serviceCode: "GERIATRIC_TELECONSULT",
       currencyType: "INR",
       // actualPriceINR: 100,
-      occurance: "Weekly",
+      occurance: "per-service",
     },
     {
       id: "ENVANV005",
@@ -587,7 +587,7 @@ export default function Services() {
       serviceCode: "GP_TELECONSULT",
       currencyType: "INR",
       // actualPriceINR: 100,
-      occurance: "Weekly",
+      occurance: "per-service",
     },
     {
       id: "ENVANV006",
@@ -599,7 +599,7 @@ export default function Services() {
       serviceCode: "DOCTOR_HOME_VISIT",
       currencyType: "INR",
       // actualPriceINR: 100,
-      occurance: "Weekly",
+      occurance: "per-service",
     },
     {
       id: "ENVANV007",
@@ -611,7 +611,7 @@ export default function Services() {
       serviceCode: "PHYSIO_HOME_VISIT",
       currencyType: "INR",
       // actualPriceINR: 100,
-      occurance: "Weekly",
+      occurance: "per-service",
     },
     {
       id: "ENVANV008",
@@ -623,7 +623,7 @@ export default function Services() {
       serviceCode: "NURSE_ON_CALL",
       currencyType: "INR",
       // actualPriceINR: 100,
-      occurance: "Weekly",
+      occurance: "per-service",
     },
     {
       id: "ENVANV009",
@@ -634,7 +634,7 @@ export default function Services() {
       serviceCode: "WOUND_DRESSING",
       currencyType: "INR",
       // actualPriceINR: 100,
-      occurance: "Weekly",
+      occurance: "per-service",
     },
     {
       id: "ENVANV010",
@@ -646,7 +646,7 @@ export default function Services() {
       serviceCode: "CARETAKER_24H",
       currencyType: "INR",
       // actualPriceINR: 100,
-      occurance: "Weekly",
+      occurance: "per-service",
     },
     {
       id: "ENVANV011",
@@ -658,7 +658,7 @@ export default function Services() {
       serviceCode: "NURSING_12H",
       currencyType: "INR",
       // actualPriceINR: 100,
-      occurance: "Weekly",
+      occurance: "per-service",
     },
     {
       id: "ENVANV012",
@@ -670,7 +670,7 @@ export default function Services() {
       serviceCode: "NURSING_24H",
       currencyType: "INR",
       // actualPriceINR: 100,
-      occurance: "Weekly",
+      occurance: "per-service",
     },
     {
       id: "ENVANV013",
@@ -682,7 +682,7 @@ export default function Services() {
       serviceCode: "MEDICAL_EQUIPMENT",
       currencyType: "INR",
       // actualPriceINR: 100,
-      occurance: "Weekly",
+      occurance: "per-service",
     },
     {
       id: "ENVANV014",
@@ -694,7 +694,7 @@ export default function Services() {
       serviceCode: "AUDIOLOGIST_HOME",
       currencyType: "INR",
       // actualPriceINR: 100,
-      occurance: "Weekly",
+      occurance: "per-service",
     },
     {
       id: "ENVANV015",
@@ -706,7 +706,7 @@ export default function Services() {
       serviceCode: "DEMENTIA_APP",
       currencyType: "INR",
       // actualPriceINR: 100,
-      occurance: "Weekly",
+      occurance: "per-service",
     },
     {
       id: "ENVANV016",
@@ -719,7 +719,7 @@ export default function Services() {
       serviceCode: "SMART_WATCH",
       currencyType: "INR",
       // actualPriceINR: 100,
-      occurance: "Weekly",
+      occurance: "Yearly",
     },
   ];
 
@@ -820,18 +820,18 @@ export default function Services() {
 
   const getCategoryColor = (category: string = "") => {
     const colors: Record<string, string> = {
-      "Care Management": "#3B82F6",
-      Therapy: "#10B981",
-      Screening: "#8B5CF6",
-      Teleconsultation: "#EF4444",
-      "Home Visit": "#F59E0B",
-      Nursing: "#EC4899",
-      "Care Support": "#6366F1",
-      Equipment: "#14B8A6",
-      Digital: "#06B6D4",
-      Technology: "#F97316",
+      "Care Management": "#fa8e1e",
+      Therapy: "#fa8e1e",
+      Screening: "#fa8e1e",
+      Teleconsultation: "#fa8e1e",
+      "Home Visit": "#fa8e1e",
+      Nursing: "#fa8e1e",
+      "Care Support": "#fa8e1e",
+      Equipment: "#fa8e1e",
+      Digital: "#fa8e1e",
+      Technology: "#fa8e1e",
     };
-    return colors[category] || "#6B7280";
+    return colors[category] || "#fa8e1e";
   };
 
   // API function to handle booking
@@ -1039,16 +1039,46 @@ export default function Services() {
             <button
               className={`view-btn ${viewMode === "cards" ? "active" : ""}`}
               onClick={() => setViewMode("cards")}
+              aria-label="Card view"
             >
-              <span className="view-icon">🃏</span>
-              Card View
+              <svg
+                width="17"
+                height="17"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <rect x="3" y="3" width="7" height="7" />
+                <rect x="14" y="3" width="7" height="7" />
+                <rect x="3" y="14" width="7" height="7" />
+                <rect x="14" y="14" width="7" height="7" />
+              </svg>
             </button>
+
             <button
               className={`view-btn ${viewMode === "table" ? "active" : ""}`}
               onClick={() => setViewMode("table")}
+              aria-label="Table view"
             >
-              <span className="view-icon">📋</span>
-              Table View
+              <svg
+                width="17"
+                height="17"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <rect x="3" y="3" width="18" height="18" />
+                <line x1="3" y1="9" x2="21" y2="9" />
+                <line x1="3" y1="15" x2="21" y2="15" />
+                <line x1="9" y1="3" x2="9" y2="21" />
+                <line x1="15" y1="3" x2="15" y2="21" />
+              </svg>
             </button>
           </div>
         </div>

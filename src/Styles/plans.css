@@ -12,7 +12,8 @@
 =========================== */
 .page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #fdf2ff 0%, #fff5f0 100%);
+  /* background: linear-gradient(135deg, #fdf2ff 0%, #fff5f0 100%); */
+  background-color: #fff;
   padding: 15px;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
@@ -25,7 +26,7 @@
 .plans-title {
   font-size: 2rem;
   font-weight: 900;
-  background: linear-gradient(135deg, #FF8C00 0%, #9F4579 100%);
+  background: linear-gradient(135deg, #FF8C00 );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -68,7 +69,7 @@
   display: flex;
   flex-direction: column;
   height:410px;
-  padding: 2px 20px;
+  padding: 2px 2px;
 }
 
 .plan-card:hover {
@@ -315,7 +316,7 @@
 }
 
 .plan-details-panel.expanded {
-  max-height: 1500px;
+  max-height: 2500px;
 }
 
 .details-container {
@@ -525,14 +526,14 @@
 }
 @media (min-width: 1440px) {
   .plan-card {
-    height: 520px;
+    height: 620px;
   }
 }
 
 /* 💻 Laptops (1024px – 1439px) */
 @media (max-width: 1439px) {
   .plan-card {
-    height: 450px;
+    height: 520px;
   }
 }
 

@@ -5,7 +5,7 @@
   max-width: 100%;
   margin: 0 ;
   padding: 30px 20px;
-  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  background:#fff;
   min-height: 100vh;
 }
 
@@ -17,7 +17,7 @@
   margin-bottom: 10px;
   display: flex;
   justify-content: end;
-  gap:20%;
+  gap:32%;
 }
 
 .services-title {
@@ -51,9 +51,9 @@
   display: flex;
   background: white;
   border-radius: 12px;
-  padding: 1px;
+  padding: 5px 5px;
   border: 2px solid #e2e8f0;
-  gap: 4px;
+  gap: 1px;
   height: 38px;
 }
 
@@ -101,7 +101,7 @@
 .filter-btn {
   padding: 6px 12px;
   background: white;
-  border: 2px solid #e2e8f0;
+  border: 2px solid #fa8e1e;
   border-radius: 20px;
   font-size: 0.9rem;
   font-weight: 600;
@@ -111,14 +111,15 @@
 }
 
 .filter-btn:hover {
-  border-color: #3b82f6;
-  color: #3b82f6;
+  /* border-color: #3b82f6; */
+  /* color: #3b82f6; */
 }
 
 .filter-btn.active {
   background: #9a3f7b;
   /* border-color: #9a3f7b; */
   color: white;
+  border: 1px solid #9a3f7b;
 }
 
 /* ===========================
@@ -135,12 +136,13 @@
    CARD STYLING
 =========================== */
 .service-card {
-  background: rgb(240, 232, 232);
+  background: rgb(255, 255, 255);
   border-radius: 16px;
+  border: 2px solid #fa8e1e;
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
-  border: 1px solid #e2e8f0;
+  /* border: 1px solid #e2e8f0; */
   display: flex;
   flex-direction: column;
   height: 100%;

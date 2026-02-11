@@ -5,10 +5,10 @@ import { logoutUserApi } from "../Service";
 import { toast } from "react-toastify";
 
 const tabs = [
-  { label: "Home", path: "/" },
-  { label: "Plans", path: "/plans" },
-  { label: "Services", path: "/services" },
-  { label: "Contact", path: "/contact" },
+  { label: "About Us", path: "/" },
+  { label: "Quick Plans", path: "/plans" },
+  { label: "Quick Services", path: "/services" },
+  { label: "Quick Enquiry", path: "/contact" },
   { label: "Login", path: "/login" },
 ];
 
@@ -74,7 +74,11 @@ export default function Navbar() {
             className={({ isActive }) =>
               isActive ? "nav-btn active" : "nav-btn"
             }
-            style={{ textDecoration: "none" }}
+            style={{
+              textDecoration: "none",
+              fontFamily: "'Inter', system-ui, sans-serif",
+              color:"#000"
+            }}
           >
             {tab.label}
           </NavLink>

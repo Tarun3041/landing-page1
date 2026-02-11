@@ -501,7 +501,7 @@ export const PaymentHandler: React.FC<PaymentHandlerProps> = ({
   };
 
   return (
-    <Card title="Select Payment Method">
+    <Card title="Select Payment Method" style={{color:""}}>
       <h4>Online Payment</h4>
 
       <div className="payment-options">

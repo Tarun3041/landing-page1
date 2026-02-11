@@ -16,7 +16,7 @@ export default function Header() {
         <img
           src={logo}
           alt="Enviro × Anvayaa"
-          className="h-8 w-auto object-contain cursor-pointer"
+          className="h-8 w-auto object-conrin cursor-pointer"
           onClick={handleLogoClick}
           style={{cursor:"pointer"}}
         />

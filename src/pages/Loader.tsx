@@ -25,10 +25,10 @@ const Loader: React.FC<LoaderProps> = ({
   type = "modern",
   size = "medium",
   color = "#4361ee",
-  backgroundColor = "rgba(255, 255, 255, 0.95)",
+  // backgroundColor = "white",
   text,
   textColor = "#333",
-  overlayOpacity = 0.7,
+  overlayOpacity = 0.1,
   blur = true,
   fullscreen = true,
   onClose,
@@ -105,7 +105,7 @@ const Loader: React.FC<LoaderProps> = ({
         return (
           <div
             className="loader-spinner"
-            style={{ width: spinnerSize, height: spinnerSize }}
+            // style={{ width: spinnerSize, height: spinnerSize }}
           >
             <style>{`
               @keyframes spin {
@@ -362,7 +362,6 @@ const Loader: React.FC<LoaderProps> = ({
                 left: 10%;
                 right: 10%;
                 bottom: 10%;
-                background: ${backgroundColor};
                 border-radius: 50%;
               }
               .loader-modern::after {
@@ -418,15 +417,16 @@ const Loader: React.FC<LoaderProps> = ({
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          padding: "40px",
-          backgroundColor,
-          borderRadius: "20px",
-          boxShadow: "0 20px 60px rgba(0, 0, 0, 0.3)",
-          border: "1px solid rgba(255, 255, 255, 0.2)",
-          minWidth: "200px",
-          minHeight: "200px",
+          // Remove or comment out these lines:
+          // padding: "40px",
+          // borderRadius: "20px",
+          // boxShadow: "0 20px 60px rgba(0, 0, 0, 0.3)",
+          // border: "1px solid rgba(255, 255, 255, 0.2)",
+          // minWidth: "200px",
+          // minHeight: "200px",
           transform: show ? "scale(1)" : "scale(0.9)",
           transition: "transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
+          background: "transparent", // <-- Add this to ensure transparency
         }}
       >
         {renderLoader()}

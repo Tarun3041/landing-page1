@@ -9,7 +9,7 @@
 .purchase-layout {
   display: grid;
   gap: 16px;
-  max-width: 960px;
+  max-width: 1260px;
   margin: 0 auto;
 }
 
@@ -29,10 +29,18 @@
 }
 
 .summary-header {
-  background: linear-gradient(90deg, #fa8e1e, #fa8e1e);
-  padding: 7px 10px;
+  background: linear-gradient(135deg, 
+    rgba(250, 142, 30, 0.85) 0%, 
+    rgba(255, 107, 53, 0.85) 100%);
+  backdrop-filter: blur(10px);
+  padding: 8px 15px;
   color: white;
-  border-radius: 10px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 
+    0 8px 32px rgba(250, 142, 30, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .plan-name-title {
@@ -40,7 +48,6 @@
   font-size: 2rem !important;
   font-weight: 600;
   text-align: center;
-  /* color: rgb(202, 62, 202); */
 }
 
 .plan-info-block,
@@ -53,9 +60,6 @@
 .service-name {
   font-size: 1rem;
   line-height: 1.45;
-  /* color: #334155; */
-    /* color: rgb(202, 62, 202); */
-
   display: block;
   margin-bottom: 10px;
 }
@@ -63,7 +67,75 @@
 .service-desc {
   font-size: 0.92rem;
   display: block;
+  margin-bottom: 20px;
+  padding: 15px;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
+  line-height: 1.6;
+  color: #334155;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.service-desc:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+/* Optional: Add a subtle decorative element */
+.service-desc::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(to bottom, #fa8e1e, #feb47b);
+  border-radius: 4px 0 0 4px;
+}
+
+/* If you want to add an icon or label */
+.service-desc-label {
+  display: inline-block;
+  background: #fa8e1e;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
   margin-bottom: 10px;
+  margin-left: -5px;
+}
+
+/* Alternative design with quote style */
+.service-desc.quote-style {
+  background: #fefce8;
+  border-left: 4px solid #fbbf24;
+  border-radius: 8px;
+  padding: 15px 20px;
+  font-style: italic;
+  color: #854d0e;
+  box-shadow: 0 2px 8px rgba(251, 191, 36, 0.1);
+}
+
+/* Card style alternative */
+.service-desc.card-style {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* If description has multiple paragraphs */
+.service-desc p {
+  margin-bottom: 10px;
+}
+
+.service-desc p:last-child {
+  margin-bottom: 0;
 }
 
 .block-title {
@@ -72,9 +144,55 @@
   color: #1e293b;
 }
 
-/* Compact lists */
-.highlight-list.compact,
-.service-meta.compact {
+/* Chips Container */
+.chips-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+/* Service Chip Styles */
+.service-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.service-chip:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.chip-label {
+  opacity: 0.9;
+  font-weight: 600;
+}
+
+.chip-value {
+  font-weight: 500;
+}
+
+.highlight-chip {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  color: white !important;
+  border: none !important;
+}
+
+.chip-icon {
+  margin-right: 4px;
+  font-size: 1rem;
+}
+
+/* Highlight list compact */
+.highlight-list.compact {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -82,8 +200,7 @@
   color: #475569;
 }
 
-.highlight-list.compact li,
-.service-meta.compact li {
+.highlight-list.compact li {
   padding: 4px 0;
   display: flex;
   align-items: flex-start;
@@ -96,7 +213,7 @@
   line-height: 1.3;
 }
 
-/* Price area – very compact */
+/* Price area */
 .order-summary-compact {
   padding: 12px 16px;
 }
@@ -106,8 +223,32 @@
   margin: 0 0 8px !important;
 }
 
-.thin-divider {
-  margin: 10px 0;
+/* Billing Period Selector */
+.billing-period-selector {
+  display: flex;
+  justify-content: center;
+  margin: 16px 0;
+}
+
+.billing-radio-group {
+  width: 60%;
+  max-width: 300px;
+}
+
+.billing-radio-group .ant-radio-button-wrapper {
+  width: 50%;
+  text-align: center;
+  border-radius: 6px !important;
+}
+
+.billing-radio-group .ant-radio-button-wrapper:first-child {
+  border-top-left-radius: 6px !important;
+  border-bottom-left-radius: 6px !important;
+}
+
+.billing-radio-group .ant-radio-button-wrapper:last-child {
+  border-top-right-radius: 6px !important;
+  border-bottom-right-radius: 6px !important;
 }
 
 .price-display {
@@ -123,6 +264,7 @@
   padding: 10px 18px;
   border-radius: 10px;
   border: 1px solid #99f6e4;
+  margin: 0 5px;
 }
 
 .currency {
@@ -142,7 +284,7 @@
   color: #64748b;
 }
 
-/* Policy notes – small */
+/* Policy notes */
 .small-text {
   font-size: 0.82rem;
   line-height: 1.4;
@@ -154,9 +296,21 @@
   text-align: center;
 }
 
+.note-box {
+  background: #fff7e6;
+  padding: 10px;
+  border-radius: 6px;
+  border-left: 4px solid #ffa940;
+  margin: 12px 0;
+}
+
 .refund-policy {
   margin-top: 12px;
   text-align: center;
+  background: #f6ffed;
+  padding: 10px;
+  border-radius: 6px;
+  border-left: 4px solid #52c41a;
 }
 
 .refund-policy a {
@@ -172,10 +326,41 @@
   padding: 16px;
 }
 
-/* Mobile-first stacking */
+/* Mobile responsiveness */
 @media (max-width: 991px) {
   .purchase-layout {
     grid-template-columns: 1fr;
   }
+  
+  .chips-container {
+    gap: 6px;
+  }
+  
+  .service-chip {
+    padding: 5px 10px;
+    font-size: 0.8rem;
+  }
+  
+  .billing-radio-group {
+    width: 80%;
+  }
+  
+  .price-box {
+    margin: 5px 0;
+  }
 }
 
+@media (max-width: 576px) {
+  .chips-container {
+    justify-content: center;
+  }
+  
+  .service-chip {
+    flex: 1 0 auto;
+    justify-content: center;
+  }
+  
+  .billing-radio-group {
+    width: 100%;
+  }
+}
