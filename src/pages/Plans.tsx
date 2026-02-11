@@ -212,10 +212,10 @@ const plansData = [
         icon: "📞",
         text: "Fortnightly Wellness Check-in Calls by Wellness Manager",
       },
-      {
-        icon: "⌚",
-        text: "Senior Smart Watch with SOS & fall detection",
-      },
+      // {
+      //   icon: "⌚",
+      //   text: "Senior Smart Watch with SOS & fall detection",
+      // },
     ],
     detailedSections: [
       {
@@ -516,7 +516,7 @@ export default function Plans() {
                   <div className="plan-badge">{plan.badge}</div>
                   <h2 className="plan-title">{plan.title}</h2>
                 </div>
-                <p className="plan-desc">{plan.description}</p>
+                {/* <p className="plan-desc">{plan.description}</p> */}
 
                 <div className="plan-price-section">
                   <div className="plan-price">
